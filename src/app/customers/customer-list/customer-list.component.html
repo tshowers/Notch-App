@@ -1,0 +1,48 @@
+<div class="card" *ngIf="loading else spinner">
+    <div class="card-header">
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon1"><i class="fa fa-filter"></i></span>
+            </div>
+
+            <input [(ngModel)]="filteredData" type="text" class="form-control form-control-lg"
+                placeholder="Type to filter results">
+        </div>
+    </div>
+    <div class="sales-list" id="orderList">
+        <table class="table table-hover table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Spent</th>
+                    <th>Verified</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let data of customers | sortByCustomerLastName | customerFilter:filteredData; let i = index"
+                    (click)="onView(data)" style="cursor: pointer;">
+                    <td>{{data?.id}}</td>
+                    <td class="text-capitalize">{{data?.first_name | sentence}} {{data?.last_name | sentence}}</td>
+                    <td>{{data?.total_spent | currency}}</td>
+                    <td><i class="fa "
+                            [ngClass]="{'fa-check-square-o': data?.verified_email, 'fa-square-o': !data?.verified_email }"
+                            aria-hidden="true"></i>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<ng-template #spinner>
+    <div class="loader">
+        <div class="loader-inner">
+            <div class="spinner-eff spinner-eff-4">
+                <div class="bar bar-top"></div>
+                <div class="bar bar-right"></div>
+                <div class="bar bar-bottom"></div>
+                <div class="bar bar-left"></div>
+            </div>
+        </div>
+    </div>
+</ng-template>

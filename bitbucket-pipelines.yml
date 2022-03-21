@@ -1,0 +1,49 @@
+image: node:14.15.4
+
+pipelines:
+ branches:
+    main:
+    - step:
+        name: Production
+        caches:
+          - node
+        deployment: production
+        script:
+          - npm install
+          - npm install -g @angular/cli@11.2.6
+          - npm run build:library
+          - npm run build:production
+          - pipe: atlassian/firebase-deploy:0.3.0
+            variables:
+              FIREBASE_TOKEN: '$FIREBASE_TOKEN_CI'
+              PROJECT_ID: $FIREBASE_PRODUCTION_PROJECT
+    release/staging:
+    - step:
+        name: Staging
+        caches:
+          - node
+        deployment: staging
+        script:
+          - npm install
+          - npm install -g @angular/cli@11.2.6
+          - npm run build:library
+          - npm run build:staging
+          - pipe: atlassian/firebase-deploy:0.3.0
+            variables:
+              FIREBASE_TOKEN: '$FIREBASE_TOKEN_CI'
+              PROJECT_ID: $FIREBASE_STAGING_PROJECT
+    release/development:
+    - step:
+        name: Development
+        caches:
+          - node
+        deployment: dev
+        script:
+          - npm install
+          - npm install -g @angular/cli@11.2.6
+          - npm run build:library
+          - npm run build:dev
+          - pipe: atlassian/firebase-deploy:0.3.0
+            variables:
+              FIREBASE_TOKEN: '$FIREBASE_TOKEN_CI'
+              PROJECT_ID: $FIREBASE_PROJECT              

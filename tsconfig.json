@@ -1,0 +1,134 @@
+/* To learn more about this file see: https://angular.io/config/tsconfig. */
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "baseUrl": "./",
+    "outDir": "./dist/out-tsc",
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "resolveJsonModule": true, // Added this so I could import external file into environment
+    "esModuleInterop": true,   // Added this so I could import external file into environment
+    "sourceMap": true,
+    "paths": {
+      "lick-app-widget-feed": [
+        "dist/lick-app-widget-feed/lick-app-widget-feed",
+        "dist/lick-app-widget-feed"
+      ],
+      "lick-app-widget-list-badges": [
+        "dist/lick-app-widget-list-badges/lick-app-widget-list-badges",
+        "dist/lick-app-widget-list-badges"
+      ],
+      "lick-app-widget-list-order": [
+        "dist/lick-app-widget-list-order/lick-app-widget-list-order",
+        "dist/lick-app-widget-list-order"
+      ],
+      "lick-app-widget-product": [
+        "dist/lick-app-widget-product/lick-app-widget-product",
+        "dist/lick-app-widget-product"
+      ],
+      "lick-app-widget-stats12": [
+        "dist/lick-app-widget-stats12/lick-app-widget-stats12",
+        "dist/lick-app-widget-stats12"
+      ],
+      "lick-app-widget-stats13": [
+        "dist/lick-app-widget-stats13/lick-app-widget-stats13",
+        "dist/lick-app-widget-stats13"
+      ],
+      "lick-app-widget-stats14": [
+        "dist/lick-app-widget-stats14/lick-app-widget-stats14",
+        "dist/lick-app-widget-stats14"
+      ],
+      "lick-app-widget-stats15": [
+        "dist/lick-app-widget-stats15/lick-app-widget-stats15",
+        "dist/lick-app-widget-stats15"
+      ],
+      "lick-app-widget-stats16": [
+        "dist/lick-app-widget-stats16/lick-app-widget-stats16",
+        "dist/lick-app-widget-stats16"
+      ],
+      "lick-app-widget-table-data": [
+        "dist/lick-app-widget-table-data/lick-app-widget-table-data",
+        "dist/lick-app-widget-table-data"
+      ],
+      "lick-app-widget-totals": [
+        "dist/lick-app-widget-totals/lick-app-widget-totals",
+        "dist/lick-app-widget-totals"
+      ],
+      "lick-marketing-about-product1": [
+        "dist/lick-marketing-about-product1/lick-marketing-about-product1",
+        "dist/lick-marketing-about-product1"
+      ],
+      "lick-marketing-about-product2": [
+        "dist/lick-marketing-about-product2/lick-marketing-about-product2",
+        "dist/lick-marketing-about-product2"
+      ],
+      "lick-marketing-cart": [
+        "dist/lick-marketing-cart/lick-marketing-cart",
+        "dist/lick-marketing-cart"
+      ],
+      "lick-marketing-catalog1": [
+        "dist/lick-marketing-catalog1/lick-marketing-catalog1",
+        "dist/lick-marketing-catalog1"
+      ],
+      "lick-marketing-contact-us1": [
+        "dist/lick-marketing-contact-us1/lick-marketing-contact-us1",
+        "dist/lick-marketing-contact-us1"
+      ],
+      "lick-marketing-faq1": [
+        "dist/lick-marketing-faq1/lick-marketing-faq1",
+        "dist/lick-marketing-faq1"
+      ],
+      "lick-marketing-faq2": [
+        "dist/lick-marketing-faq2/lick-marketing-faq2",
+        "dist/lick-marketing-faq2"
+      ],
+      "lick-marketing-faq3": [
+        "dist/lick-marketing-faq3/lick-marketing-faq3",
+        "dist/lick-marketing-faq3"
+      ],
+      "lick-marketing-features1": [
+        "dist/lick-marketing-features1/lick-marketing-features1",
+        "dist/lick-marketing-features1"
+      ],
+      "lick-marketing-features2": [
+        "dist/lick-marketing-features2/lick-marketing-features2",
+        "dist/lick-marketing-features2"
+      ],
+      "lick-marketing-footer1": [
+        "dist/lick-marketing-footer1/lick-marketing-footer1",
+        "dist/lick-marketing-footer1"
+      ],
+      "lick-marketing-how-to": [
+        "dist/lick-marketing-how-to/lick-marketing-how-to",
+        "dist/lick-marketing-how-to"
+      ],
+      "lick-marketing-video1": [
+        "dist/lick-marketing-video1/lick-marketing-video1",
+        "dist/lick-marketing-video1"
+      ],
+      "lick-marketing-video2": [
+        "dist/lick-marketing-video2/lick-marketing-video2",
+        "dist/lick-marketing-video2"
+      ]
+    },
+    "declaration": false,
+    "downlevelIteration": true,
+    "experimentalDecorators": true,
+    "moduleResolution": "node",
+    "importHelpers": true,
+    "target": "es2015",
+    "module": "es2020",
+    "lib": [
+      "es2018",
+      "dom"
+    ]
+  },
+  "angularCompilerOptions": {
+    "enableI18nLegacyMessageIdFormat": false,
+    "strictInjectionParameters": true,
+    "strictInputAccessModifiers": true,
+    "strictTemplates": true
+  }
+}

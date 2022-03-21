@@ -1,0 +1,70 @@
+<section id="faq---2" class="container-fluid section-block faq">
+  <div class="container">
+    <div class="row">
+
+      <h2 class="wow fadeInUp">{{headingText}}</h2>
+      <div class="block-desc wow fadeInUp">
+        <p>{{descriptionText}}</p>
+      </div>
+
+      <div class="col-md-12">
+        <!-- Accordion -->
+        <div id="accordion" class="panel-group faq-group" role="tablist" aria-multiselectable="true">
+
+          <div class="panel panel-default wow slideInUp">
+            <div class="panel-heading" role="tab" id="headingOne">
+              <h4 class="panel-title">
+                <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                  {{faqHeading1}}
+                </a>
+              </h4>
+            </div>
+            <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+              <div class="panel-body">
+                <p>
+                  {{faqDescription1}}
+                </p>
+              </div>
+            </div>
+          </div> <!-- .panel-default -->
+
+          <div class="panel panel-default wow slideInUp">
+            <div class="panel-heading" role="tab" id="headingTwo">
+              <h4 class="panel-title">
+                <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                  {{faqHeading2}}
+                </a>
+              </h4>
+            </div>
+            <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+              <div class="panel-body">
+                <p>
+                  {{faqDescription2}}
+                </p>
+              </div>
+            </div>
+          </div> <!-- .panel-default -->
+
+          <div class="panel panel-default wow slideInUp">
+            <div class="panel-heading" role="tab" id="headingThree">
+              <h4 class="panel-title">
+                <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                  {{faqHeading3}}
+                </a>
+              </h4>
+            </div>
+            <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+              <div class="panel-body">
+                <p>
+                  {{faqDescription3}}
+                </p>
+              </div>
+            </div>
+          </div> <!-- .panel-default -->
+
+        </div> <!-- .panel-group -->
+      </div>
+
+    </div> <!-- .row -->
+  </div> <!-- .container -->
+</section>

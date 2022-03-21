@@ -1,0 +1,75 @@
+<div class="loader"
+     *ngIf="reLogin">
+    <div class="loader-inner">
+        <div class="spinner-eff spinner-eff-4">
+            <div class="bar bar-top"></div>
+            <div class="bar bar-right"></div>
+            <div class="bar bar-bottom"></div>
+            <div class="bar bar-left"></div>
+        </div>
+    </div>
+</div>
+<form #dataForm="ngForm"
+      (ngSubmit)="onSubmit()"
+      *ngIf="!reLogin">
+    <div class="container">
+        <div class="card">
+            <div class="card-header" i18n>Sign In</div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md">
+                        <div class="form-group"><label for="orderID" i18n>Re-enter Email Address</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"
+                                          id="basic-addon1">@</span>
+                                </div>
+                                <input [(ngModel)]="email"
+                                       tabindex="1"
+                                       type="email"
+                                       autocorrect="off"
+                                       autocapitalize="off"
+                                       spellcheck="off"
+                                       autocomplete="off"
+                                       id="email"
+                                       name="email"
+                                       class="form-control form-control-lg"
+                                       autofocus
+                                       required>
+                            </div>
+                        </div>
+                        <div class="form-group"><label for="testKitNumber" i18n>Re-enter Kit ID Number (not needed if just signing in)</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"
+                                          id="basic-addon1"><i class="fa fa-flask"
+                                           aria-hidden="true"></i></span>
+                                </div>
+                                <input [(ngModel)]="kitNumber"
+                                       title="Can't find your Kit ID?
+                      Your Test Kit ID is located on your collection card and the instructions included with your kit. "
+                                       tabindex="2"
+                                       type="text"
+                                       autocorrect="off"
+                                       autocapitalize="off"
+                                       spellcheck="off"
+                                       autocomplete="off"
+                                       placeholder="If you are not activating a kit leave blank"
+                                       id="testKitNumber"
+                                       name="testKitNumber"
+                                       class="form-control form-control-lg">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md text-center">
+                        <button (click)="onSubmit()"
+                                class="Button Button--primary"
+                                [disabled]="!dataForm.form.valid" i18n>Next</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

@@ -1,0 +1,1432 @@
+<form #dataForm="ngForm"
+      (ngSubmit)="onSubmit();">
+    <div class="container-fluid"
+         *ngIf="data">
+        <div class="card-header">
+            <h4 class="text-capitalize">{{data['patient-fname'] | sentence}} {{data['patient-mname'] | sentence}}
+                {{data['patient-lname'] | sentence}}</h4>
+            <p class="lead text-capitalize p-2">{{data.comment}}</p>
+            <p>{{data._id}}</p>
+        </div>
+        <div class="row m-3"
+             *ngIf="buttons">
+            <div class="col text-center">
+                <div (click)="onView()"
+                     class="Button Button--primary mr-3">View</div> <button *ngIf="data._id"
+                        type="submit"
+                        class="Button Button--primary mr-3"
+                        [disabled]="!dataForm.form.valid">Update</button> <button *ngIf="!data._id"
+                        type="submit"
+                        class="Button Button--primary"
+                        [disabled]="!dataForm.form.valid">Add</button>&nbsp;
+            </div>
+        </div>
+        <div class="card-header text-center"> Cloud Files </div>
+        <div class="dropzone"
+             dropzone
+             (hovered)="toggleHover($event)"
+             (dropped)="onDrop($event)"
+             [class.hovering]="isHovering">
+            <p>Drag and Drop a File</p>
+            <input [(ngModel)]="resultsFile"
+                   type="file"
+                   name="file"
+                   id="file"
+                   class="form-control form-control-lg"
+                   (change)="upload($event)"
+                   accept=".pdf,.csv">
+        </div>
+        <div class="row mb-3">
+            <div class="col">
+                <div *ngFor="let f of dropFiles">
+                    <upload-task [file]="f"
+                                 [userId]="uid"
+                                 [data]="data"></upload-task>
+                </div>
+                <div class="progress"
+                     *ngIf="uploadProgress">
+                    <div class="progress-bar bg-progress"
+                         role="progressbar"
+                         [ngStyle]="{'width': (uploadProgress | async) + '%'}"
+                         [attr.aria-valuenow]="(uploadProgress | async)"
+                         [attr.aria-valuemin]="0"
+                         [attr.aria-valuemax]="100"></div>
+                </div>
+            </div>
+        </div>
+        <div class="row"
+             *ngIf="data.files && data.files.length">
+            <div class="col">
+                <div *ngFor="let e of data.files">
+                    <i *ngIf="isSuper"
+                       class="fa fa-times text-danger"
+                       aria-hidden="true"
+                       (click)="onDeleteFile(e)"
+                       style="cursor: pointer;"></i> &nbsp; <a href="{{e?.url}}"
+                       target="_blank"
+                       rel="noopener"><i class="fa fa-download"
+                           aria-hidden="true"></i> Download {{e?.name}}</a>
+                </div>
+            </div>
+        </div>
+        <div class="card-header text-center"> Practioner Info </div>
+        <div class="row">
+            <div class="col-md">
+                <div class="form-group">
+                    <label for="prac-name">Prac Name</label>
+                    <input [(ngModel)]="data['prac-name']"
+                           type="text"
+                           placeholder="prac name"
+                           name="prac-name"
+                           id="prac-name"
+                           class="form-control form-control-lg">
+                </div>
+            </div>
+            <div class="col-md">
+                <div class="form-group">
+                    <label for="prac-id">Prac ID</label>
+                    <input [(ngModel)]="data['prac-id']"
+                           type="text"
+                           placeholder="prac id num"
+                           name="prac-id"
+                           id="prac-id"
+                           class="form-control form-control-lg"
+                           required>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md">
+                <div class="form-group">
+                    <label for="notch-order-id">Notch Order ID</label>
+                    <input [(ngModel)]="data.notch_order_id"
+                           type="text"
+                           placeholder="notch order id"
+                           name="notch-order-id"
+                           id="notch-order-id"
+                           class="form-control form-control-lg"
+                           required>
+                </div>
+            </div>
+            <div class="col-md">
+                <div class="form-group">
+                    <label for="notch_name">Notch Name</label>
+                    <input [(ngModel)]="data.notch_name"
+                           type="text"
+                           placeholder="notch name"
+                           name="notch_name"
+                           id="notch_name"
+                           class="form-control form-control-lg"
+                           required>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md">
+                <div class="form-group">
+                    <label for="override-partner-processing">Override Partner Processing</label>
+                    <input [(ngModel)]="data['override-partner-processing']"
+                           type="text"
+                           placeholder="override partner processing"
+                           name="override-partner-processing"
+                           id="override-partner-processing"
+                           class="form-control form-control-lg">
+                </div>
+            </div>
+            <div class="col-md">
+                <div class="form-group">
+                    <label for="partner-id">Partner ID</label>
+                    <input [(ngModel)]="data['partner-id']"
+                           type="text"
+                           placeholder="partner id"
+                           name="partner-id"
+                           id="partner-id"
+                           class="form-control form-control-lg">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md">
+                <div class="form-group">
+                    <label for="partner-status-id">Partner Status ID</label>
+                    <input [(ngModel)]="data['partner-status-id']"
+                           type="text"
+                           placeholder="partner status id"
+                           name="partner-status-id"
+                           id="partner-status-id"
+                           class="form-control form-control-lg">
+                </div>
+            </div>
+            <div class="col-md">
+                <div class="form-group">
+                    <label for="partner-processing-comment">Partner Processing Comment</label>
+                    <input [(ngModel)]="data['partner-processing-comment']"
+                           type="text"
+                           placeholder="partner processing comment"
+                           name="partner-processing-comment"
+                           id="partner-processing-comment"
+                           class="form-control form-control-lg">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md">
+                <div class="form-group">
+                    <label for="file">Partner Name</label>
+                    <select [(ngModel)]="data['partner-name']"
+                            name="partner-name"
+                            id="partner-name"
+                            class="form-control form-control-lg">
+                        <option id="0"
+                                value=""></option>
+                        <option id="1"
+                                value="ORDRS">ORDRS</option>
+                        <option id="2"
+                                value="NOTCH">NOTCH</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md">
+                <div class="form-group">
+                    <label for="partner-order-id">Partner Order ID</label>
+                    <input [(ngModel)]="data['partner-order-id']"
+                           type="text"
+                           placeholder="partner-order-id"
+                           name="partner-order-id"
+                           id="partner-order-id"
+                           class="form-control form-control-lg">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md">
+                <div class="form-group">
+                    <label for="loc-pos">Loc Pos</label>
+                    <input [(ngModel)]="data['loc-pos']"
+                           type="text"
+                           placeholder="loc pos"
+                           name="loc-pos"
+                           id="loc-pos"
+                           class="form-control form-control-lg">
+                </div>
+            </div>
+            <div class="col-md">
+                <div class="form-group">
+                    <label for="locale">Locale</label>
+                    <input [(ngModel)]="data.locale"
+                           type="text"
+                           placeholder="locale"
+                           name="locale"
+                           id="locale"
+                           class="form-control form-control-lg">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md">
+                <div class="form-group">
+                    <label for="date-received">Date Received</label>
+                    <input [(ngModel)]="data['date-received']"
+                           [disabled]="!sampleProcssing"
+                           type="date"
+                           placeholder="Date Received"
+                           name="date-received"
+                           id="date-received"
+                           class="form-control form-control-lg">
+                </div>
+            </div>
+            <div class="col-md">
+                <div class="form-group">
+                    <label for="kitLabel">Kit Label</label>
+                    <input [(ngModel)]="data.kit_label"
+                           type="text"
+                           placeholder="Kit label"
+                           name="kitLabel"
+                           id="kitLabel"
+                           class="form-control form-control-lg"
+                           required>
+                </div>
+            </div>
+        </div>
+        <div class="card-header text-center"> Sample Info </div>
+        <div class="row">
+            <div class="col-md">
+                <div class="form-group">
+                    <label for="ship-method">Ship Method</label>
+                    <select [(ngModel)]="data['ship-method']"
+                            name="ship-method"
+                            id="ship-method"
+                            class="form-control form-control-lg">
+                        <option value=""></option>
+                        <option value="DHL">DHL</option>
+                        <option value="FED">Fed Ex</option>
+                        <option value="HDL">Hand Delivery</option>
+                        <option value="INH">In House</option>
+                        <option value="USP">Postal</option>
+                        <option value="UPS">UPS</option>
+                        <option value="EMS">EMS</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md">
+                <div class="form-group">
+                    <label for="tracking-num">Tracking Number</label>
+                    <input [(ngModel)]="data['tracking-num']"
+                           type="text"
+                           placeholder="tracking num"
+                           name="tracking-num"
+                           id="tracking-num"
+                           class="form-control form-control-lg">
+                </div>
+            </div>
+            <div class="col-md">
+                <div class="form-group">
+                    <label for="rush-date">Rush Date</label>
+                    <input [(ngModel)]="data['rush-date']"
+                           type="date"
+                           placeholder="rush date"
+                           name="rush-date"
+                           id="rush-date"
+                           class="form-control form-control-lg">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md">
+                <div class="form-group">
+                    <label for="sample-type">Sample Type</label>
+                    <select [(ngModel)]="data['sample-type']"
+                            name="sample-type"
+                            id="sample-type"
+                            class="form-control form-control-lg">
+                        <option value=""></option>
+                        <optgroup label="Immunology">
+                            <option value="big_tube">Big Tube</option>
+                            <option value="small_tube">Small Tube</option>
+                            <option value="dbs">DBS</option>
+                        </optgroup>
+                        <optgroup label="Chemistry">
+                            <option value="dried_urine">U Dried Urine</option>
+                            <option value="urine_card">Urine Card</option>
+                        </optgroup>
+                        <optgroup label="COVID-19 DZ/ECO">
+                            <option value="sst">Serum</option>
+                            <option value="pla">Plasma</option>
+                        </optgroup>
+                        <optgroup label="COVID-19 PCR">
+                            <option value="nps">Nasopharyngeal Swab</option>
+                            <option value="ops">Oropharyngeal Swab</option>
+                            <option value="npa">Anterior Nasal Swab</option>
+                            <option value="npw">Nasal/Nasopharyngeal Wash</option>
+                            <option value="mts">Nasal Mid-Turbinate Swab</option>
+                            <option value="sal">Saliva</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md">
+                <div class="form-group">
+                    <label for="sample-volume">Sample Volume</label>
+                    <input [(ngModel)]="data['sample-volume']"
+                           type="text"
+                           placeholder="sample volume"
+                           name="sample-volume"
+                           id="sample-volume"
+                           class="form-control form-control-lg">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md">
+                <div class="form-group">
+                    <label for="label-amount">Label Amount</label>
+                    <input [(ngModel)]="data['label-amount']"
+                           type="text"
+                           placeholder="label amount"
+                           name="label-amount"
+                           id="label-amount"
+                           class="form-control form-control-lg">
+                </div>
+            </div>
+            <div class="col-md">
+                <div class="form-group">
+                    <label for="label-print-status">Label Print Status</label>
+                    <input [(ngModel)]="data['label-print-status']"
+                           type="text"
+                           placeholder="label print status"
+                           name="label-print-status"
+                           id="label-print-status"
+                           class="form-control form-control-lg">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md">
+                <div class="form-group">
+                    <label for="date-drawn">Date Collected</label>
+                    <input [(ngModel)]="data['date-drawn']"
+                           type="date"
+                           placeholder="invoice date"
+                           name="date-drawn"
+                           id="date-drawn"
+                           class="form-control form-control-lg">
+                </div>
+            </div>
+            <div class="col-md">
+                <div class="form-group">
+                    <label for="time-drawn">Time Collected</label>
+                    <input [(ngModel)]="data['time-drawn']"
+                           type="time"
+                           placeholder="time drawn"
+                           name="time-drawn"
+                           id="time-drawn"
+                           class="form-control form-control-lg">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md">
+                <div class="form-group">
+                    <label for="time-zone">Time Zone</label>
+                    <select [(ngModel)]="data['time-zone']"
+                            name="time-zone"
+                            id="time-zone"
+                            class="form-control form-control-lg">
+                        <option id="EST"
+                                value="EST">Eastern Standard Time (EST)</option>
+                        <option id="CST"
+                                value="CST">Central Standard Time (CST)</option>
+                        <option id="MST"
+                                value="MST">Mountain Standard Time (MST)</option>
+                        <option id="PST"
+                                value="PST"
+                                selected="">Pacific Standard Time (PST)</option>
+                        <option id="AKST"
+                                value="AKST">Alaskan Standard Time (AKST)</option>
+                        <option id="HST"
+                                value="HST">Hawaii-Aleutian Standard Time (HST)</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md">
+                <div class="form-group">
+                    <label for="storage">Storage</label>
+                    <select [(ngModel)]="data.storage"
+                            name="storage"
+                            id="storage"
+                            class="form-control form-control-lg">
+                        <option id="RT"
+                                value="RT">Ambient Temperature</option>
+                        <option id="RF"
+                                value="RF">Refrigerated</option>
+                        <option id="FZ"
+                                value="FZ">Frozen</option>
+                        <option id="DF"
+                                value="DF">Deep Freeze</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md">
+                <div class="form-group">
+                    <label for="reject-code">Reject Code</label>
+                    <input [(ngModel)]="data['reject-code']"
+                           type="text"
+                           placeholder="reject code"
+                           name="reject-code"
+                           id="reject-code"
+                           class="form-control form-control-lg">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md">
+                <div class="form-group">
+                    <label for="processing-comment">Processing Comment</label>
+                    <textarea [(ngModel)]="data['processing-comment']"
+                              name="processing-comment"
+                              class="form-control form-control-lg"
+                              id="processing-comment"
+                              cols="30"
+                              rows="4"></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="card-header text-center"> Customer Info </div>
+        <div class="row">
+            <div class="col-md">
+                <div class="form-group">
+                    <label for="patient-fname">Patient First Name</label>
+                    <input [(ngModel)]="data['patient-fname']"
+                           type="text"
+                           placeholder="patient fname"
+                           name="patient-fname"
+                           id="patient-fname"
+                           class="form-control form-control-lg"
+                           required>
+                </div>
+            </div>
+            <div class="col-md">
+                <div class="form-group">
+                    <label for="patient-mname">Patient Middle Name</label>
+                    <input [(ngModel)]="data['patient-mname']"
+                           type="text"
+                           placeholder="patient mname"
+                           name="patient-mname"
+                           id="patient-mname"
+                           class="form-control form-control-lg">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md">
+                <div class="form-group">
+                    <label for="patient-lname">Patient Last Name</label>
+                    <input [(ngModel)]="data['patient-lname']"
+                           type="text"
+                           placeholder="patient lname"
+                           name="patient-lname"
+                           id="patient-lname"
+                           class="form-control form-control-lg"
+                           required>
+                </div>
+            </div>
+            <div class="col-md">
+                <div class="form-group">
+                    <label for="patient-gender">Patient Gender</label>
+                    <select [(ngModel)]="data['patient-gender']"
+                            name="patient-gender"
+                            id="patient-gender"
+                            class="form-control form-control-lg">
+                        <option value=""></option>
+                        <option value="F">Female</option>
+                        <option value="M">Male</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md">
+                <div class="form-group">
+                    <label for="patient-age">Patient Age</label>
+                    <input [(ngModel)]="data['patient-age']"
+                           type="number"
+                           placeholder="patient age"
+                           name="patient-age"
+                           id="patient-age"
+                           class="form-control form-control-lg">
+                </div>
+            </div>
+            <div class="col-md">
+                <div class="form-group">
+                    <label for="patient-dob">Patient Date of Birth</label>
+                    <input [(ngModel)]="data['patient-dob']"
+                           type="date"
+                           placeholder="patient dob"
+                           name="patient-dob"
+                           id="patient-dob"
+                           class="form-control form-control-lg">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md">
+                <div class="form-group">
+                    <label for="patient-ssn">Patient SSN</label>
+                    <input [(ngModel)]="data['patient-ssn']"
+                           type="text"
+                           placeholder="patient ssn"
+                           name="patient-ssn"
+                           id="patient-ssn"
+                           class="form-control form-control-lg">
+                </div>
+            </div>
+            <div class="col-md">
+                <div class="form-group">
+                    <label for="patient-address">Patient Address</label>
+                    <input [(ngModel)]="data['patient-address']"
+                           type="text"
+                           placeholder="patient address"
+                           name="patient-address"
+                           id="patient-address"
+                           class="form-control form-control-lg">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md">
+                <div class="form-group">
+                    <label for="patient-city">Patient City</label>
+                    <input [(ngModel)]="data['patient-city']"
+                           type="text"
+                           placeholder="patient city"
+                           name="patient-city"
+                           id="patient-city"
+                           class="form-control form-control-lg">
+                </div>
+            </div>
+            <div class="col-md">
+                <div class="form-group">
+                    <label for="patient-state">Patient State</label>
+                    <select [(ngModel)]="data['patient-state']"
+                            name="patient-state"
+                            id="patient-state"
+                            class="form-control form-control-lg">
+                        <option value=""></option>
+                        <option value="AL">Alabama [AL]</option>
+                        <option value="AK">Alaska [AK]</option>
+                        <option value="AS">American Samoa [AS]</option>
+                        <option value="AZ">Arizona [AZ]</option>
+                        <option value="AR">Arkansas [AR]</option>
+                        <option value="CA">California [CA]</option>
+                        <option value="CO">Colorado [CO]</option>
+                        <option value="CT">Connecticut [CT]</option>
+                        <option value="DE">Delaware [DE]</option>
+                        <option value="DC">District of Columbia [DC]</option>
+                        <option value="FM">Federated States Of Micronesia [FM]</option>
+                        <option value="FL">Florida [FL]</option>
+                        <option value="GA">Georgia [GA]</option>
+                        <option value="GU">Guam [GU]</option>
+                        <option value="HI">Hawaii [HI]</option>
+                        <option value="ID">Idaho [ID]</option>
+                        <option value="IL">Illinois [IL]</option>
+                        <option value="IN">Indiana [IN]</option>
+                        <option value="IA">Iowa [IA]</option>
+                        <option value="KS">Kansas [KS]</option>
+                        <option value="KY">Kentucky [KY]</option>
+                        <option value="LA">Louisiana [LA]</option>
+                        <option value="ME">Maine [ME]</option>
+                        <option value="MH">Marshall Islands [MH]</option>
+                        <option value="MD">Maryland [MD]</option>
+                        <option value="MA">Massachusetts [MA]</option>
+                        <option value="MI">Michigan [MI]</option>
+                        <option value="MN">Minnesota [MN]</option>
+                        <option value="MS">Mississippi [MS]</option>
+                        <option value="MO">Missouri [MO]</option>
+                        <option value="MT">Montana [MT]</option>
+                        <option value="NE">Nebraska [NE]</option>
+                        <option value="NV">Nevada [NV]</option>
+                        <option value="NH">New Hampshire [NH]</option>
+                        <option value="NJ">New Jersey [NJ]</option>
+                        <option value="NM">New Mexico [NM]</option>
+                        <option value="NY">New York [NY]</option>
+                        <option value="NC">North Carolina [NC]</option>
+                        <option value="ND">North Dakota [ND]</option>
+                        <option value="OH">Ohio [OH]</option>
+                        <option value="OK">Oklahoma [OK]</option>
+                        <option value="OR">Oregon [OR]</option>
+                        <option value="PW">Palau [PW]</option>
+                        <option value="PA">Pennsylvania [PA]</option>
+                        <option value="PR">Puerto Rico [PR]</option>
+                        <option value="RI">Rhode Island [RI]</option>
+                        <option value="SC">South Carolina [SC]</option>
+                        <option value="SD">South Dakota [SD]</option>
+                        <option value="TN">Tennessee [TN]</option>
+                        <option value="TX">Texas [TX]</option>
+                        <option value="UT">Utah [UT]</option>
+                        <option value="VT">Vermont [VT]</option>
+                        <option value="VI">Virgin Islands [VI]</option>
+                        <option value="VA">Virginia [VA]</option>
+                        <option value="WA">Washington [WA]</option>
+                        <option value="WV">West Virginia [WV]</option>
+                        <option value="WI">Wisconsin [WI]</option>
+                        <option value="WY">Wyoming [WY]</option>
+                        <option value="">---------------------------------------------</option>
+                        <option value="AB">Alberta [AB]</option>
+                        <option value="BC">British Columbia [BC]</option>
+                        <option value="MB">Manitoba [MB]</option>
+                        <option value="NB">New Brunswick [NB]</option>
+                        <option value="NF">Newfoundland and Labrador [NF]</option>
+                        <option value="NT">Northwest Territories [NT]</option>
+                        <option value="NS">Nova Scotia [NS]</option>
+                        <option value="NU">Nunavut [NU]</option>
+                        <option value="ON">Ontario [ON]</option>
+                        <option value="PE">Prince Edward Island [PE]</option>
+                        <option value="QC">Quebec [QC]</option>
+                        <option value="SK">Saskatchewan [SK]</option>
+                        <option value="YT">Yukon Territory [YT]</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md">
+                <div class="form-group">
+                    <label for="patient-zip">Patient Zip</label>
+                    <input [(ngModel)]="data['patient-zip']"
+                           type="text"
+                           placeholder="patient zip"
+                           name="patient-zip"
+                           id="patient-zip"
+                           class="form-control form-control-lg">
+                </div>
+            </div>
+            <div class="col-md">
+                <div class="form-group">
+                    <label for="patient-country">Patient Country</label>
+                    <select [(ngModel)]="data['patient-country']"
+                            name="patient-country"
+                            id="patient-country"
+                            class="form-control form-control-lg">
+                        <option value="US">United States of America [US]</option>
+                        <option value="CA">Canada [CA]</option>
+                        <option value="">---------------------------------------------</option>
+                        <option value="AF">Afghanistan [AF]</option>
+                        <option value="AL">Albania [AL]</option>
+                        <option value="DZ">Algeria [DZ]</option>
+                        <option value="AS">American Samoa [AS]</option>
+                        <option value="AD">Andorra [AD]</option>
+                        <option value="AO">Angola [AO]</option>
+                        <option value="AI">Anguilla [AI]</option>
+                        <option value="AQ">Antarctica [AQ]</option>
+                        <option value="AG">Antigua and Barbuda [AG]</option>
+                        <option value="AR">Argentina [AR]</option>
+                        <option value="AM">Armenia [AM]</option>
+                        <option value="AW">Aruba [AW]</option>
+                        <option value="AU">Australia [AU]</option>
+                        <option value="AT">Austria [AT]</option>
+                        <option value="AZ">Azerbaijan [AZ]</option>
+                        <option value="BS">Bahama [BS]</option>
+                        <option value="BH">Bahrain [BH]</option>
+                        <option value="BD">Bangladesh [BD]</option>
+                        <option value="BB">Barbados [BB]</option>
+                        <option value="BY">Belarus [BY]</option>
+                        <option value="BE">Belgium [BE]</option>
+                        <option value="BZ">Belize [BZ]</option>
+                        <option value="BJ">Benin [BJ]</option>
+                        <option value="BM">Bermuda [BM]</option>
+                        <option value="BT">Bhutan [BT]</option>
+                        <option value="BO">Bolivia [BO]</option>
+                        <option value="BA">Bosnia and Herzegovina [BA]</option>
+                        <option value="BW">Botswana [BW]</option>
+                        <option value="BV">Bouvet Island [BV]</option>
+                        <option value="BR">Brazil [BR]</option>
+                        <option value="IO">British Indian Ocean Territory [IO]</option>
+                        <option value="VG">British Virgin Islands [VG]</option>
+                        <option value="BN">Brunei Darussalam [BN]</option>
+                        <option value="BG">Bulgaria [BG]</option>
+                        <option value="BF">Burkina Faso [BF]</option>
+                        <option value="BI">Burundi [BI]</option>
+                        <option value="CI">Côte D'ivoire (Ivory Coast [CI]</option>
+                        <option value="KH">Cambodia [KH]</option>
+                        <option value="CM">Cameroon [CM]</option>
+                        <option value="CA">Canada [CA]</option>
+                        <option value="CV">Cape Verde [CV]</option>
+                        <option value="KY">Cayman Islands [KY]</option>
+                        <option value="CF">Central African Republic [CF]</option>
+                        <option value="TD">Chad [TD]</option>
+                        <option value="CL">Chile [CL]</option>
+                        <option value="CN">China [CN]</option>
+                        <option value="CX">Christmas Island [CX]</option>
+                        <option value="CC">Cocos (Keeling) Islands [CC]</option>
+                        <option value="CO">Colombia [CO]</option>
+                        <option value="KM">Comoros [KM]</option>
+                        <option value="CG">Congo [CG]</option>
+                        <option value="CK">Cook Islands [CK]</option>
+                        <option value="CR">Costa Rica [CR]</option>
+                        <option value="HR">Croatia [HR]</option>
+                        <option value="CU">Cuba [CU]</option>
+                        <option value="CY">Cyprus [CY]</option>
+                        <option value="CZ">Czech Republic [CZ]</option>
+                        <option value="DK">Denmark [DK]</option>
+                        <option value="DJ">Djibouti [DJ]</option>
+                        <option value="DM">Dominica [DM]</option>
+                        <option value="DO">Dominican Republic [DO]</option>
+                        <option value="TP">East Timor [TP]</option>
+                        <option value="EC">Ecuador [EC]</option>
+                        <option value="EG">Egypt [EG]</option>
+                        <option value="SV">El Salvador [SV]</option>
+                        <option value="GQ">Equatorial Guinea [GQ]</option>
+                        <option value="ER">Eritrea [ER]</option>
+                        <option value="EE">Estonia [EE]</option>
+                        <option value="ET">Ethiopia [ET]</option>
+                        <option value="FK">Falkland Islands (Malvinas) [FK]</option>
+                        <option value="FO">Faroe Islands [FO]</option>
+                        <option value="FJ">Fiji [FJ]</option>
+                        <option value="FI">Finland [FI]</option>
+                        <option value="FR">France [FR]</option>
+                        <option value="FX">France, Metropolitan [FX]</option>
+                        <option value="GF">French Guiana [GF]</option>
+                        <option value="PF">French Polynesia [PF]</option>
+                        <option value="TF">French Southern Territories [TF]</option>
+                        <option value="GA">Gabon [GA]</option>
+                        <option value="GM">Gambia [GM]</option>
+                        <option value="GE">Georgia [GE]</option>
+                        <option value="DE">Germany [DE]</option>
+                        <option value="GH">Ghana [GH]</option>
+                        <option value="GI">Gibraltar [GI]</option>
+                        <option value="GR">Greece [GR]</option>
+                        <option value="GL">Greenland [GL]</option>
+                        <option value="GD">Grenada [GD]</option>
+                        <option value="GP">Guadeloupe [GP]</option>
+                        <option value="GU">Guam [GU]</option>
+                        <option value="GT">Guatemala [GT]</option>
+                        <option value="GN">Guinea [GN]</option>
+                        <option value="GW">Guinea-Bissau [GW]</option>
+                        <option value="GY">Guyana [GY]</option>
+                        <option value="HT">Haiti [HT]</option>
+                        <option value="HM">Heard and McDonald Islands [HM]</option>
+                        <option value="HN">Honduras [HN]</option>
+                        <option value="HK">Hong Kong [HK]</option>
+                        <option value="HU">Hungary [HU]</option>
+                        <option value="IS">Iceland [IS]</option>
+                        <option value="IN">India [IN]</option>
+                        <option value="ID">Indonesia [ID]</option>
+                        <option value="IQ">Iraq [IQ]</option>
+                        <option value="IE">Ireland [IE]</option>
+                        <option value="IR">Islamic Republic of Iran [IR]</option>
+                        <option value="IL">Israel [IL]</option>
+                        <option value="IT">Italy [IT]</option>
+                        <option value="JM">Jamaica [JM]</option>
+                        <option value="JP">Japan [JP]</option>
+                        <option value="JO">Jordan [JO]</option>
+                        <option value="KZ">Kazakhstan [KZ]</option>
+                        <option value="KE">Kenya [KE]</option>
+                        <option value="KI">Kiribati [KI]</option>
+                        <option value="KP">Korea, Democratic People's Repub [KP]</option>
+                        <option value="KR">Korea, Republic of [KR]</option>
+                        <option value="KW">Kuwait [KW]</option>
+                        <option value="KG">Kyrgyzstan [KG]</option>
+                        <option value="LA">Lao People's Democratic Republic [LA]</option>
+                        <option value="LV">Latvia [LV]</option>
+                        <option value="LB">Lebanon [LB]</option>
+                        <option value="LS">Lesotho [LS]</option>
+                        <option value="LR">Liberia [LR]</option>
+                        <option value="LY">Libyan Arab Jamahiriya [LY]</option>
+                        <option value="LI">Liechtenstein [LI]</option>
+                        <option value="LT">Lithuania [LT]</option>
+                        <option value="LU">Luxembourg [LU]</option>
+                        <option value="MO">Macau [MO]</option>
+                        <option value="MG">Madagascar [MG]</option>
+                        <option value="MW">Malawi [MW]</option>
+                        <option value="MY">Malaysia [MY]</option>
+                        <option value="MV">Maldives [MV]</option>
+                        <option value="ML">Mali [ML]</option>
+                        <option value="MT">Malta [MT]</option>
+                        <option value="MH">Marshall Islands [MH]</option>
+                        <option value="MQ">Martinique [MQ]</option>
+                        <option value="MR">Mauritania [MR]</option>
+                        <option value="MU">Mauritius [MU]</option>
+                        <option value="YT">Mayotte [YT]</option>
+                        <option value="MX">Mexico [MX]</option>
+                        <option value="FM">Micronesia [FM]</option>
+                        <option value="MD">Moldova, Republic of [MD]</option>
+                        <option value="MC">Monaco [MC]</option>
+                        <option value="MN">Mongolia [MN]</option>
+                        <option value="MS">Monserrat [MS]</option>
+                        <option value="MA">Morocco [MA]</option>
+                        <option value="MZ">Mozambique [MZ]</option>
+                        <option value="MM">Myanmar [MM]</option>
+                        <option value="NA">Nambia [NA]</option>
+                        <option value="NR">Nauru [NR]</option>
+                        <option value="NP">Nepal [NP]</option>
+                        <option value="AN">Netherlands Antilles [AN]</option>
+                        <option value="NL">Netherlands [NL]</option>
+                        <option value="NC">New Caledonia [NC]</option>
+                        <option value="NZ">New Zealand [NZ]</option>
+                        <option value="NI">Nicaragua [NI]</option>
+                        <option value="NE">Niger [NE]</option>
+                        <option value="NG">Nigeria [NG]</option>
+                        <option value="NU">Niue [NU]</option>
+                        <option value="NF">Norfolk Island [NF]</option>
+                        <option value="MP">Northern Mariana Islands [MP]</option>
+                        <option value="NO">Norway [NO]</option>
+                        <option value="OM">Oman [OM]</option>
+                        <option value="PK">Pakistan [PK]</option>
+                        <option value="PW">Palau [PW]</option>
+                        <option value="PA">Panama [PA]</option>
+                        <option value="PG">Papua New Guinea [PG]</option>
+                        <option value="PY">Paraguay [PY]</option>
+                        <option value="PE">Peru [PE]</option>
+                        <option value="PH">Philippines [PH]</option>
+                        <option value="PN">Pitcairn [PN]</option>
+                        <option value="PL">Poland [PL]</option>
+                        <option value="PT">Portugal [PT]</option>
+                        <option value="PR">Puerto Rico [PR]</option>
+                        <option value="QA">Qatar [QA]</option>
+                        <option value="RE">Réunion [RE]</option>
+                        <option value="RO">Romania [RO]</option>
+                        <option value="RU">Russian Federation [RU]</option>
+                        <option value="RW">Rwanda [RW]</option>
+                        <option value="LC">Saint Lucia [LC]</option>
+                        <option value="WS">Samoa [WS]</option>
+                        <option value="SM">San Marino [SM]</option>
+                        <option value="ST">Sao Tome and Principe [ST]</option>
+                        <option value="SA">Saudi Arabia [SA]</option>
+                        <option value="SN">Senegal [SN]</option>
+                        <option value="SC">Seychelles [SC]</option>
+                        <option value="SL">Sierra Leone [SL]</option>
+                        <option value="SG">Singapore [SG]</option>
+                        <option value="SK">Slovakia [SK]</option>
+                        <option value="SI">Slovenia [SI]</option>
+                        <option value="SB">Solomon Islands [SB]</option>
+                        <option value="SO">Somalia [SO]</option>
+                        <option value="ZA">South Africa [ZA]</option>
+                        <option value="GS">South Georgia and the South Sand [GS]</option>
+                        <option value="ES">Spain [ES]</option>
+                        <option value="LK">Sri Lanka [LK]</option>
+                        <option value="SH">St. Helena [SH]</option>
+                        <option value="KN">St. Kitts and Nevis [KN]</option>
+                        <option value="PM">St. Pierre and Miquelon [PM]</option>
+                        <option value="VC">St. Vincent and the Grenadines [VC]</option>
+                        <option value="SD">Sudan [SD]</option>
+                        <option value="SR">Suriname [SR]</option>
+                        <option value="SJ">Svalbard and Jan Mayen Islands [SJ]</option>
+                        <option value="SZ">Swaziland [SZ]</option>
+                        <option value="SE">Sweden [SE]</option>
+                        <option value="CH">Switzerland [CH]</option>
+                        <option value="SY">Syrian Arab Republic [SY]</option>
+                        <option value="TW">Taiwan [TW]</option>
+                        <option value="TJ">Tajikistan [TJ]</option>
+                        <option value="TZ">Tanzania, United Republic of [TZ]</option>
+                        <option value="TH">Thailand [TH]</option>
+                        <option value="TG">Togo [TG]</option>
+                        <option value="TK">Tokelau [TK]</option>
+                        <option value="TO">Tonga [TO]</option>
+                        <option value="TT">Trinidad and Tobago [TT]</option>
+                        <option value="TN">Tunisia [TN]</option>
+                        <option value="TR">Turkey [TR]</option>
+                        <option value="TM">Turkmenistan [TM]</option>
+                        <option value="TC">Turks and Caicos Islands [TC]</option>
+                        <option value="TV">Tuvalu [TV]</option>
+                        <option value="UG">Uganda [UG]</option>
+                        <option value="UA">Ukraine [UA]</option>
+                        <option value="AE">United Arab Emirates [AE]</option>
+                        <option value="GB">United Kingdom (Great Britain) [GB]</option>
+                        <option value="UM">United States Minor Outlying Isl [UM]</option>
+                        <option value="US">USA [US]</option>
+                        <option value="VI">United States Virgin Islands [VI]</option>
+                        <option value="ZZ">Unknown or unspecified country [ZZ]</option>
+                        <option value="UY">Uruguay [UY]</option>
+                        <option value="UZ">Uzbekistan [UZ]</option>
+                        <option value="VU">Vanuatu [VU]</option>
+                        <option value="VA">Vatican City State [VA]</option>
+                        <option value="VE">Venezuela [VE]</option>
+                        <option value="VN">Vietnam [VN]</option>
+                        <option value="WF">Wallis and Futuna Islands [WF]</option>
+                        <option value="EH">Western Sahara [EH]</option>
+                        <option value="YE">Yemen [YE]</option>
+                        <option value="YU">Yugoslavia [YU]</option>
+                        <option value="ZR">Zaire [ZR]</option>
+                        <option value="ZM">Zambia [ZM]</option>
+                        <option value="ZW">Zimbabwe [ZW]</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md">
+                <div class="form-group">
+                    <label for="patient-phday">Phone - Day</label>
+                    <input [(ngModel)]="data['patient-phday']"
+                           type="tel"
+                           placeholder="patient phday"
+                           name="patient-phday"
+                           id="patient-phday"
+                           class="form-control form-control-lg">
+                </div>
+            </div>
+            <div class="col-md">
+                <div class="form-group">
+                    <label for="patient-pheve">Phone - Evening</label>
+                    <input [(ngModel)]="data['patient-pheve']"
+                           type="tel"
+                           placeholder="patient pheve"
+                           name="patient-pheve"
+                           id="patient-pheve"
+                           class="form-control form-control-lg">
+                </div>
+            </div>
+            <div class="col-md">
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input [(ngModel)]="data.email"
+                           type="email"
+                           name="email"
+                           id="email"
+                           class="form-control form-control-lg">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md">
+                <div class="form-group form-check">
+                    <input [(ngModel)]="data.textNotification"
+                           type="checkbox"
+                           class="form-check-input"
+                           id="textNotification"
+                           name="textNotification">
+                    <label class="form-check-label"
+                           for="textNotification">Text Notification</label>
+                </div>
+            </div>
+            <div class="col-md">
+                <div class="form-group form-check">
+                    <input [(ngModel)]="data.emailNotification"
+                           type="checkbox"
+                           class="form-check-input"
+                           id="emailNotification"
+                           name="emailNotification">
+                    <label class="form-check-label"
+                           for="emailNotification">Email Notification</label>
+                </div>
+            </div>
+        </div>
+        <div class="card-header text-center"> Test and Billing </div>
+        <div class="row">
+            <div class="col-md">
+                <div class="form-group">
+                    <label for="test-ordered">Test Ordered</label>
+                    <input [(ngModel)]="data['test-ordered']"
+                           type="text"
+                           placeholder="test ordered"
+                           name="test-ordered"
+                           id="test-ordered"
+                           class="form-control form-control-lg"
+                           readonly>
+                </div>
+            </div>
+            <div class="col-md">
+                <div class="form-group">
+                    <label for="test-priority">Test Priority</label>
+                    <select [(ngModel)]="data['test-priority']"
+                            name="test-priority"
+                            id="test-priority"
+                            class="form-control form-control-lg">
+                        <option value="0">Standard</option>
+                        <option value="1">Rush</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md">
+                <div class="form-group">
+                    <label for="bill-method">Billing Method</label>
+                    <select [(ngModel)]="data['bill-method']"
+                            name="bill-method"
+                            id="bill-method"
+                            class="form-control form-control-lg">
+                        <option value=""></option>
+                        <option value="BILL">Bill Doctor</option>
+                        <option value="CASH">Cash</option>
+                        <option value="COMP">Complimentary</option>
+                        <option value="CKDR">Doctor Check</option>
+                        <option value="CCDR">Doctor Credit Card</option>
+                        <option value="CKPT">Patient Check</option>
+                        <option value="CCPT">Patient Credit Card</option>
+                        <option value="RPT">Repeat N/C</option>
+                        <option value="R&amp;D">Research &amp; Development</option>
+                        <option value="PREP">Prepay</option>
+                        <option value="DTC">DTC</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md">
+                <div class="form-group">
+                    <label for="bill-ref">Billing Reference</label>
+                    <input [(ngModel)]="data['bill-ref']"
+                           type="text"
+                           placeholder="bill ref"
+                           name="bill-ref"
+                           id="bill-ref"
+                           class="form-control form-control-lg">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md">
+                <div class="form-group">
+                    <label for="check-amount">Check Amount</label>
+                    <input [(ngModel)]="data['check-amount']"
+                           type="text"
+                           placeholder="check amount"
+                           name="check-amount"
+                           id="check-amount"
+                           class="form-control form-control-lg">
+                </div>
+            </div>
+            <div class="col-md">
+                <div class="form-group">
+                    <label for="ordered-date">Ordered Date</label>
+                    <input [(ngModel)]="data['ordered-date']"
+                           type="date"
+                           placeholder="ordered date"
+                           name="ordered-date"
+                           id="ordered-date"
+                           class="form-control form-control-lg">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md">
+                <div class="form-group">
+                    <label for="species">Species</label>
+                    <input [(ngModel)]="data.species"
+                           type="text"
+                           placeholder="species"
+                           name="species"
+                           id="species"
+                           class="form-control form-control-lg">
+                </div>
+            </div>
+            <div class="col-md">
+                <div class="form-group">
+                    <label for="breed">Breed</label>
+                    <input [(ngModel)]="data.breed"
+                           type="text"
+                           placeholder="breed"
+                           name="breed"
+                           id="breed"
+                           class="form-control form-control-lg">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md">
+                <div class="form-group">
+                    <label for="invoice-date">Invoice Date</label>
+                    <input [(ngModel)]="data['invoice-date']"
+                           type="date"
+                           placeholder="invoice date"
+                           name="invoice-date"
+                           id="invoice-date"
+                           class="form-control form-control-lg">
+                </div>
+            </div>
+            <div class="col-md">
+                <div class="form-group">
+                    <label for="invoice-num">Invoice Number</label>
+                    <input [(ngModel)]="data['invoice-num']"
+                           type="text"
+                           placeholder="invoice num"
+                           name="invoice-num"
+                           id="invoice-num"
+                           class="form-control form-control-lg">
+                </div>
+            </div>
+        </div>
+        <div class="card-header text-center"> Administration </div>
+        <div class="row">
+            <div class="col-md">
+                <div class="form-group">
+                    <label for="status">Status</label>
+                    <select [(ngModel)]="data.status"
+                            name="status"
+                            id="status"
+                            class="form-control form-control-lg"
+                            (change)="checkStatus()"
+                            required>
+                        <option value=""></option>
+                        <option value="0">Pending</option>
+                        <option value="1">Entry Hold</option>
+                        <option value="9">Fully Reject</option>
+                        <option value="10">Cancel</option>
+                        <option value="5">Lab Received</option>
+                        <option value="50">Verified</option>
+                        <option value="72">Submitted to Ordrs</option>
+                        <option value="76">Approved by Ordrs</option>
+                        <option value="11">Testing in Progress</option>
+                        <option value="14">Waiting for Review</option>
+                        <option value="2">Approved</option>
+                        <option value="15">All Tests Uploaded</option>
+                        <option value="22">All Reports Sent</option>
+                        <option value="68">Hold Report</option>
+                        <option value="996">QNS</option>
+                        <option value="997" [disabled]="!canDeliver">Partial Delivery</option>
+                        <option value="998">Activated</option>
+                        <option value="999" [disabled]="!canDeliver">Results Delivered</option>
+                        <option value="900">Unknown</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md">
+                <div class="form-group">
+                    <label for="diagnoses">Diagnoses</label>
+                    <input [(ngModel)]="data.diagnoses"
+                           type="text"
+                           placeholder="diagnoses"
+                           name="diagnoses"
+                           id="diagnoses"
+                           class="form-control form-control-lg">
+                </div>
+            </div>
+        </div>
+        <div class="card-header text-center"> Miscellaneous </div>
+        <div class="row">
+            <div class="col-md">
+                <div class="form-group">
+                    <label for="prefix">Prefix</label>
+                    <input [(ngModel)]="data.prefix"
+                           type="text"
+                           placeholder="prefix"
+                           name="prefix"
+                           id="prefix"
+                           class="form-control form-control-lg">
+                </div>
+            </div>
+            <div class="col-md">
+                <div class="form-group">
+                    <label for="print-batch-id">Print Batch ID</label>
+                    <input [(ngModel)]="data['print-batch-id']"
+                           type="text"
+                           placeholder="print batch id"
+                           name="print-batch-id"
+                           id="print-batch-id"
+                           class="form-control form-control-lg">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md">
+                <div class="form-group">
+                    <label for="owner-fname">Owner First Name</label>
+                    <input [(ngModel)]="data['owner-fname']"
+                           type="text"
+                           placeholder="owner fname"
+                           name="owner-fname"
+                           id="owner-fname"
+                           class="form-control form-control-lg">
+                </div>
+            </div>
+            <div class="col-md">
+                <div class="form-group">
+                    <label for="owner-mname">Owner Middle Name</label>
+                    <input [(ngModel)]="data['owner-mname']"
+                           type="text"
+                           placeholder="owner mname"
+                           name="owner-mname"
+                           id="owner-mname"
+                           class="form-control form-control-lg">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md">
+                <div class="form-group">
+                    <label for="owner-lname">Owner Last Name</label>
+                    <input [(ngModel)]="data['owner-lname']"
+                           type="text"
+                           placeholder="owner lname"
+                           name="owner-lname"
+                           id="owner-lname"
+                           class="form-control form-control-lg">
+                </div>
+            </div>
+            <div class="col-md">
+                <div class="form-group">
+                    <label for="ship-priority">Ship Priority</label>
+                    <input [(ngModel)]="data['ship-priority']"
+                           type="text"
+                           placeholder="ship priority"
+                           name="ship-priority"
+                           id="ship-priority"
+                           class="form-control form-control-lg">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md">
+                <div class="form-group">
+                    <label for="approved-order-type-id">Approved Order Type ID</label>
+                    <input [(ngModel)]="data['approved-order-type-id']"
+                           type="text"
+                           placeholder="approved order type id"
+                           name="approved-order-type-id"
+                           id="approved-order-type-id"
+                           class="form-control form-control-lg">
+                </div>
+            </div>
+            <div class="col-md">
+                <div class="form-group">
+                    <label for="patient-phase">Patient Phase</label>
+                    <input [(ngModel)]="data['patient-phase']"
+                           type="text"
+                           placeholder="patient phase"
+                           name="patient-phase"
+                           id="patient-phase"
+                           class="form-control form-control-lg">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md">
+                <div class="form-group">
+                    <label for="patient-cycle-day">Patient Cycle Day</label>
+                    <input [(ngModel)]="data['patient-cycle-day']"
+                           type="text"
+                           placeholder="patient cycle day"
+                           name="patient-cycle-day"
+                           id="patient-cycle-day"
+                           class="form-control form-control-lg">
+                </div>
+            </div>
+            <div class="col-md">
+                <div class="form-group">
+                    <label for="patient-cycle-length">Patient Cycle Length</label>
+                    <input [(ngModel)]="data['patient-cycle-length']"
+                           type="text"
+                           placeholder="patient cycle length"
+                           name="patient-cycle-length"
+                           id="patient-cycle-length"
+                           class="form-control form-control-lg">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md">
+                <div class="form-group">
+                    <label for="report-template">Report Template</label>
+                    <input [(ngModel)]="data['report-template']"
+                           type="text"
+                           placeholder="report-template"
+                           name="report-template"
+                           id="report-template"
+                           class="form-control form-control-lg">
+                </div>
+            </div>
+            <div class="col-md">
+                <div class="form-group">
+                    <label for="comment">Comment</label>
+                    <textarea [(ngModel)]="data.comment"
+                              name="comment"
+                              class="form-control form-control-lg"
+                              id="comment"
+                              cols="30"
+                              rows="4"></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md">
+                <div class="form-group">
+                    <label for="entry-comment">Entry Comment</label>
+                    <input [(ngModel)]="data['entry-comment']"
+                           type="text"
+                           placeholder="entry comment"
+                           name="entry-comment"
+                           id="entry-comment"
+                           class="form-control form-control-lg">
+                </div>
+            </div>
+            <div class="col-md">
+                <div class="form-group">
+                    <label for="icd9">ICD9</label>
+                    <input [(ngModel)]="data.icd9"
+                           type="text"
+                           placeholder="icd9"
+                           name="icd9"
+                           id="icd9"
+                           class="form-control form-control-lg">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md">
+                <div class="form-group">
+                    <label for="ordered-by">Ordered By</label>
+                    <input [(ngModel)]="data['ordered-by']"
+                           type="text"
+                           placeholder="ordered by"
+                           name="ordered-by"
+                           id="ordered-by"
+                           class="form-control form-control-lg">
+                </div>
+            </div>
+            <div class="col-md">
+                <div class="form-group">
+                    <label for="request">Request</label>
+                    <input [(ngModel)]="data.request"
+                           type="text"
+                           placeholder="request"
+                           name="request"
+                           id="request"
+                           class="form-control form-control-lg">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md">
+                <div class="form-group">
+                    <div class="form-check">
+                        <input [(ngModel)]="data['do-not-send']"
+                               type="checkbox"
+                               name="do-not-send"
+                               id="do-not-send"
+                               class="form-check-input">
+                        <label class="form-check-label"
+                               for="do-not-send">Do Not Send</label>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md">
+                <div class="form-group">
+                    <div class="form-check">
+                        <input [(ngModel)]="data.verified"
+                               type="checkbox"
+                               placeholder="verified"
+                               name="verified"
+                               id="verified"
+                               class="form-check-input">
+                        <label class="form-check-label"
+                               for="verified">Verified</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md">
+                <div class="form-group">
+                    <div class="form-check">
+                        <input [(ngModel)]="data['sent-to-blis']"
+                               type="checkbox"
+                               placeholder="sent to blis"
+                               name="sent-to-blis"
+                               id="sent-to-blis"
+                               class="form-check-input">
+                        <label class="form-check-label"
+                               for="sent-to-blis">Sent to Blis</label>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md">
+                <div class="form-group">
+                    <div class="form-check">
+                        <input [(ngModel)]="data['sent-to-qb']"
+                               type="checkbox"
+                               placeholder="sent to qb"
+                               name="sent-to-qb"
+                               id="sent-to-qb"
+                               class="form-check-input">
+                        <label class="form-check-label"
+                               for="sent-to-qb">Send To Quickbooks</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-header text-center"> Panels </div>
+        <div class="row">
+            <div class="col-md-3 text-nowrap"
+                 *ngFor="let p of panels; let g = index">
+                <input [(ngModel)]="p.checked"
+                       type="checkbox"
+                       id="panel{{p?.id}}"
+                       name="panel{{p?.id}}"
+                       class="form-check-input"
+                       (click)="onPanelClick(p)"> {{p.shortName}}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col text-center">
+                <button (click)="onView()"
+                        class="Button Button--primary mr-3">View</button> <button *ngIf="data._id"
+                        type="submit"
+                        class="Button Button--primary mr-3"
+                        [disabled]="!dataForm.form.valid">Update</button><button *ngIf="!data._id"
+                        type="submit"
+                        class="Button Button--primary"
+                        [disabled]="!dataForm.form.valid">Add</button>
+            </div>
+        </div>
+    </div>
+</form>

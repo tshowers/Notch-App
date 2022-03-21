@@ -1,0 +1,30 @@
+<div
+  infinite-scroll
+  [infiniteScrollDistance]="distance"
+  [infiniteScrollThrottle]="throttle"
+  (scrolled)="onScroll()"
+>
+<table class="table table-hover table-striped">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Spent</th>
+            <th>Verified</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let data of dataService.items | async | customerFilter:filteredData; let i = index"
+            (click)="onView(data)" style="cursor: pointer;">
+            <td>{{data?.id}}</td>
+            <td class="text-capitalize">{{data?.first_name  | sentence}} {{data?.last_name  | sentence}}</td>
+            <td>{{data?.total_spent | currency}}</td>
+            <td><i class="fa "
+                    [ngClass]="{'fa-check-square-o': data?.verified_email, 'fa-square-o': !data?.verified_email }"
+                    aria-hidden="true"></i>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+</div>

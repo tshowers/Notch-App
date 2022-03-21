@@ -1,0 +1,182 @@
+<form #dataForm="ngForm" (ngSubmit)="onSubmit();dataForm.reset();">
+    <div class="container" *ngIf="data">
+        <div class="card-header text-center">
+            <button (click)="onView()" class="Button Button--primary mr-3">View</button>
+        </div>
+        <div class="row">
+            <div class="col-md">
+                <div class="form-group">
+                    <label for="order-id">Order ID</label>
+                    <input [(ngModel)]="data['order-id']" type="text" placeholder="order id" name="order-id"
+                        id="order-id" class="form-control form-control-lg">
+                </div>
+            </div>
+            <div class="col-md">
+                <div class="form-group">
+                    <label for="customer-id">Customer ID</label>
+                    <input [(ngModel)]="data['customer-id']" type="text" placeholder="customer id" name="customer-id"
+                        id="customer-id" class="form-control form-control-lg">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md">
+                <div class="form-group">
+                    <label for="kit-id">Kit ID</label>
+                    <input [(ngModel)]="data['kit-id']" type="text" placeholder="kit id" name="kit-id" id="kit-id"
+                        class="form-control form-control-lg">
+                </div>
+            </div>
+            <div class="col-md">
+                <div class="form-group">
+                    <label for="loc-pos">loc-pos</label>
+                    <input [(ngModel)]="data['loc-pos']" type="text" placeholder="loc pos" name="loc-pos" id="loc-pos"
+                        class="form-control form-control-lg">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md">
+                <div class="form-group">
+                    <label for="order-date">Approved Order Type ID</label>
+                    <input [(ngModel)]="data['order-date']" type="date" placeholder="order date" name="order-date"
+                        id="order-date" class="form-control form-control-lg">
+                </div>
+            </div>
+            <div class="col-md">
+                <div class="form-group">
+                    <label for="order-taker">Order Taker</label>
+                    <input [(ngModel)]="data['order-taker']" type="text" placeholder="order taker" name="order-taker"
+                        id="order-taker" class="form-control form-control-lg">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md">
+                <div class="form-group">
+                    <label for="phone">Approved Order Type ID</label>
+                    <input [(ngModel)]="data['phone']" type="text" placeholder="phone" name="phone" id="phone"
+                        class="form-control form-control-lg">
+                </div>
+            </div>
+            <div class="col-md">
+                <div class="form-group">
+                    <label for="pract-id">Pract ID</label>
+                    <input [(ngModel)]="data['pract-id']" type="text" placeholder="pract id" name="pract-id"
+                        id="pract-id" class="form-control form-control-lg">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md">
+                <div class="form-group">
+                    <label for="process-type">Process Type</label>
+                    <input [(ngModel)]="data['process-type']" type="text" placeholder="process type" name="process-type"
+                        id="process-type" class="form-control form-control-lg">
+                </div>
+            </div>
+            <div class="col-md">
+                <div class="form-group">
+                    <label for="processing-status">Processing Status</label>
+                    <input [(ngModel)]="data['processing-status']" type="text" placeholder="processing status"
+                        name="processing-status" id="processing-status" class="form-control form-control-lg">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md">
+                <div class="form-group">
+                    <label for="req-loc">Req Loc</label>
+                    <input [(ngModel)]="data['req-loc']" type="text" placeholder="req loc" name="req-loc" id="req-loc"
+                        class="form-control form-control-lg">
+                </div>
+            </div>
+            <div class="col-md">
+                <div class="form-group">
+                    <label for="requester">Requester</label>
+                    <input [(ngModel)]="data.requester" type="text" placeholder="requester" name="requester"
+                        id="requester" class="form-control form-control-lg">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md">
+                <div class="form-group">
+                    <label for="address1">Address 1</label>
+                    <input [(ngModel)]="data.address1" type="text" placeholder="address1" name="address1" id="address1"
+                        class="form-control form-control-lg">
+                </div>
+            </div>
+            <div class="col-md">
+                <div class="form-group">
+                    <label for="address2">Address 2</label>
+                    <input [(ngModel)]="data.address2" type="text" placeholder="address2" name="address2" id="address2"
+                        class="form-control form-control-lg">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md">
+                <div class="form-group">
+                    <label for="city">City</label>
+                    <input [(ngModel)]="data['city']" type="text" placeholder="city" name="city"
+                        id="approved-order-type-id" class="form-control form-control-lg">
+                </div>
+            </div>
+            <div class="col-md">
+                <div class="form-group">
+                    <label for="state">State</label>
+                    <input [(ngModel)]="data.state" type="text" placeholder="state" name="state" id="state"
+                        class="form-control form-control-lg">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md">
+                <div class="form-group">
+                    <label for="zip">Zip</label>
+                    <input [(ngModel)]="data['zip']" type="text" placeholder="zip" name="zip" id="zip"
+                        class="form-control form-control-lg">
+                </div>
+            </div>
+            <div class="col-md">
+                <div class="form-group">
+                    <label for="country">Country</label>
+                    <input [(ngModel)]="data['country']" type="text" placeholder="country" name="country" id="country"
+                        class="form-control form-control-lg">
+                </div>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-md">
+                <div class="form-group">
+                    <label for="clinic-name">Clinic Name</label>
+                    <input [(ngModel)]="data['clinic-name']" type="text" placeholder="clinic name" name="clinic-name"
+                        id="clinic-name" class="form-control form-control-lg">
+                </div>
+            </div>
+            <div class="col-md">
+                <div class="form-group">
+                    <label for="status">status</label>
+                    <input [(ngModel)]="data.status" type="text" placeholder="status" name="status" id="status"
+                        class="form-control form-control-lg">
+                </div>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-md">
+                <div class="form-group">
+                    <label for="comment">Comment</label>
+                    <textarea [(ngModel)]="data.comment" name="comment" id="comment"
+                        class="form-control form-control-lg" cols="30" rows="10"></textarea>
+
+                </div>
+            </div>
+
+
+
+        </div>
+    </div>
+</form>

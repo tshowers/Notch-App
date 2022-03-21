@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+  <file source-language="en-US" datatype="plaintext" original="ng2.template">
+    <body>
+      <trans-unit id="6715719906287569656" datatype="html">
+        <source> Sign In</source>
+        <target> S&apos;identifier</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/kit-registration/kit-registration.component.html</context>
+          <context context-type="linenumber">12</context>
+        </context-group>
+        <note priority="1" from="description">A link to allow the user to sign in</note>
+      </trans-unit>
+      <trans-unit id="2047180597990458652" datatype="html">
+        <source> Let&apos;s activate your kit </source>
+        <target> Activons votre kit </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/kit-registration/kit-registration.component.html</context>
+          <context context-type="linenumber">15,16</context>
+        </context-group>
+        <note priority="1" from="description">Kit Activation heading</note>
+      </trans-unit>
+      <trans-unit id="7567886402897682093" datatype="html">
+        <source>Use the Test Kit ID on your collection card and the instructions included with your kit. </source>
+        <target>Utilisez l&apos;ID du kit de test sur votre carte de collecte et les instructions incluses avec votre kit. </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/kit-registration/kit-registration.component.html</context>
+          <context context-type="linenumber">22,23</context>
+        </context-group>
+        <note priority="1" from="description">Instructions for how to locate the kit number</note>
+      </trans-unit>
+      <trans-unit id="4879517228803151475" datatype="html">
+        <source>Email Address</source>
+        <target>Adresse e-mail</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/kit-registration/kit-registration.component.html</context>
+          <context context-type="linenumber">33</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7070582419915296026" datatype="html">
+        <source>Kit ID Number</source>
+        <target>Numéro d&apos;identification du kit</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/kit-registration/kit-registration.component.html</context>
+          <context context-type="linenumber">55</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6905368319880590101" datatype="html">
+        <source>Next <x id="START_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;i class=&quot;fa fa-chevron-right&quot; aria-hidden=&quot;true&quot;&gt;"/><x id="CLOSE_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;/i&gt;"/></source>
+        <target>Suivant <x id="START_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;i class=&quot;fa fa-chevron-right&quot; aria-hidden=&quot;true&quot;&gt;"/><x id="CLOSE_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;/i&gt;"/></target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/kit-registration/kit-registration.component.html</context>
+          <context context-type="linenumber">84</context>
+        </context-group>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

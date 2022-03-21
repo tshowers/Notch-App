@@ -1,0 +1,158 @@
+<form #dataForm="ngForm" (ngSubmit)="onSubmit(dataForm)">
+    <div class="container">
+
+        <div class="row">
+            <div class="col-12">
+
+                <div class="card mb-3">
+                    <div class="card-body">
+                        
+                        <p *ngIf="user" class="card-title p-3 text-uppercase">
+                            <span class="text-right float-right"><small><a routerLink="/"><img
+                                            src="assets/process/Notch_Process_Ico03_Activation_Lght.svg" height="32"
+                                            width="32" alt="Actiate Test Kit" i18n> Activate a Kit</a>&nbsp;|&nbsp; <a
+                                        routerLink="/sign-out" i18n> <i class="fa fa-sign-out" aria-hidden="true"></i> Sign
+                                        Out</a> <span *ngIf="isAdmin">&nbsp;|&nbsp;</span> <a *ngIf="isAdmin"
+                                        routerLink="/admin"><i class="fa fa-cogs" aria-hidden="true"></i> Admin</a> 
+                                    
+                                    </small>
+                                    </span>
+                        </p>
+    
+                        <div class="row">
+                            <div class="col-12 col-md-6">
+                                <div *ngIf="user" class="form-group"> <label for="firstName" i18n>First
+                                        Name</label>
+
+                                    <input [(ngModel)]="user.firstName" id="firstName" name="firstName"
+                                        tabindex="1" placeholder="First Name" autocorrect="off" autocapitalize="off"
+                                        spellcheck="off" autocomplete="off" class="form-control form-control-lg"
+                                        type="text" minlength="1" required autofocus>
+
+
+
+
+                                </div>
+                                <div *ngIf="user" class="form-group"> <label for="lastName" i18n>Last
+                                        Name</label>
+
+                                    <input [(ngModel)]="user.lastName" id="lastName" name="lastName"
+                                        tabindex="2" autocorrect="off" autocapitalize="off" spellcheck="off"
+                                        autocomplete="off" placeholder="Last Name" class="form-control form-control-lg"
+                                        type="text" minlength="2" required>
+                                </div>
+
+
+                                <div *ngIf="user" class="form-group"> <label for="dob" i18n>Date of
+                                        Birth</label>
+
+                                    <input [(ngModel)]="user.dob" id="dob" name="dob" tabindex="3"
+                                        autocorrect="off" autocapitalize="off" spellcheck="off" autocomplete="off"
+                                        class="form-control form-control-lg" type="date" required>
+
+                                </div>
+
+                                <div *ngIf="user" class="form-group"> <label for="gender" i18n>Gender at Birth</label>
+
+
+                                    <select [(ngModel)]="user.gender" name="gender" id="gender"
+                                        tabindex="4" class="form-control form-control-lg" required>
+                                        <option value=""></option>
+                                        <option *ngFor="let g of GENDERS" value="{{g}}">{{g}}</option>
+                                    </select>
+
+
+
+                                </div>
+
+                                <div *ngIf="user" class="form-group"> <label for="phoneNumber" i18n>Phone
+                                        Number <small>xxx-xxx-xxxx</small> </label>
+
+                                    <input [(ngModel)]="user.phoneNumber" id="phoneNumber"
+                                        name="phoneNumber" tabindex="5" autocorrect="off" autocapitalize="off"
+                                        spellcheck="off" autocomplete="off" placeholder="xxx-xxx-xxxx"
+                                        class="form-control form-control-lg" type="tel" minlength="7" required
+                                        pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}">
+                                </div>
+
+
+
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <div *ngIf="user" class="form-group"> <label for="address1" i18n>
+                                        Address</label>
+
+                                    <input [(ngModel)]="user.address1" id="address1" name="address1"
+                                        tabindex="9" placeholder="Address" autocorrect="off" autocapitalize="off"
+                                        spellcheck="off" autocomplete="off" class="form-control form-control-lg"
+                                        type="text" required>
+                                </div>
+
+                                <div *ngIf="user" class="form-group"> <label for="city" i18n>
+                                        City</label>
+
+                                    <input [(ngModel)]="user.city" id="city" name="city" tabindex="10"
+                                        placeholder="City" autocorrect="off" autocapitalize="off" spellcheck="off"
+                                        autocomplete="off" class="form-control form-control-lg" type="text" required>
+                                </div>
+
+                                <div *ngIf="user" class="form-group"> <label for="province" i18n>
+                                        Province/State</label>
+
+                                    <input [(ngModel)]="user.province" id="province" name="province"
+                                        tabindex="11" placeholder="State or Province" autocorrect="off"
+                                        autocapitalize="off" spellcheck="off" autocomplete="off"
+                                        class="form-control form-control-lg" type="text" required>
+                                </div>
+
+
+                                <div *ngIf="user" class="form-group"> <label for="zip" i18n>
+                                        Zip</label>
+
+                                    <input [(ngModel)]="user.zip" id="zip" name="zip" tabindex="12"
+                                        placeholder="Zip Code" autocorrect="off" autocapitalize="off" spellcheck="off"
+                                        autocomplete="off" class="form-control form-control-lg" type="text" required>
+                                </div>
+
+
+
+
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 text-center">
+                <div class="form-group form-actions">
+                    <button type="button" class="Button Button--primary mr-3" (click)="back()" i18n>Back</button>
+
+                    <button type="submit" tabindex="13" class="Button Button--primary"
+                        [disabled]="!dataForm.form.valid" i18n>Update <i class="fa fa-chevron-right" aria-hidden="true"></i></button>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</form>
+
+<br>
+<div class="text-center"  *ngIf="!production">
+    <i class="fa fa-toggle-off" aria-hidden="true" [hidden]="toggleDisplay" (click)="toggleDiagnostic()"
+        style="cursor: pointer"></i>
+    <i class="fa fa-toggle-on" aria-hidden="true" [hidden]="!toggleDisplay" (click)="toggleDiagnostic()"
+        style="cursor: pointer"></i>
+</div>
+
+<div id="diagnostic" [ngStyle]="{'display': diagDisplay}" *ngIf="!production">
+    <h4>User</h4>
+    <pre class="text-light bg-dark p-4">{{user | json}}</pre>
+    <hr>
+    <h4>ID</h4>
+    <pre class="text-light bg-dark p-4">{{uid | json}}</pre>
+</div>

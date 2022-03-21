@@ -1,0 +1,30 @@
+export class Profile {
+     uid?: string;
+     email?: string;
+     displayName?: string;
+     photoURL?: string;
+     gender?: string;
+     phoneNumber?: any;
+     emailVerified?: boolean;
+     emailToSendResults?: string;
+     customer_id?: string;
+     kitNumber?: any;
+     orders?: any;
+     addresses?: any[] = [];
+     address1?: string;
+     address2?: string;
+     city?: string;
+     province?: string;
+     zip?: string;
+     county?: string;
+     country?: string;
+     testKitOrders?: any[] = [];
+     labOrders?: any[] = [];
+     timeCollected?: any;
+     dateCollected?: any;
+     firstName?: string;
+     lastName?: string;
+     dob?: string;
+     createDate? = new Date().getTime();
+     modifiedDate?: any;
+}

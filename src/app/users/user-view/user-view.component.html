@@ -1,0 +1,225 @@
+<div class="container"
+     *ngIf="data">
+  <div class="row">
+    <div class="col">
+      <div class="card">
+        <div class="card-header text-capitalize">
+          <h4>{{data?.firstName | sentence}} {{data?.lastName | sentence}}</h4>
+        </div>
+        <div class="row no-print">
+          <div class="col text-center m-2">
+            <button (click)="onEdit()"
+                    class="Button Button--primary mr-3">Edit</button>
+            <button (click)="onDelete()"
+                    class="Button Button--primary mr-3"
+                    *ngIf="isSuper">Delete</button>
+            <div (click)="onJSON()"
+                 class="Button Button--primary">
+              <span *ngIf="jsonView == 'none'">JSON</span>
+              <span *ngIf="jsonView == ''">Regular</span>
+            </div>
+          </div>
+        </div>
+        <div class="row"
+             [ngStyle]="{'display': jsonView}">
+          <div class="col-md m-2"
+               style="max-width:600px; overflow: scroll;">
+            <pre class="text-light bg-dark p-4">{{data | json}}</pre>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md">
+            <div class="card data-box">
+              <div class="card-header">
+                <i class="fa fa-address-card-o"
+                   aria-hidden="true"></i> Address
+              </div>
+              <div class="card-body">
+                <p class="card-text">{{data.uid}}</p>
+                <div *ngIf="data">
+                  <p>{{data?.address1}} {{data?.address2}}<br> {{data?.city}} {{data?.province}} {{data?.zip}} </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md">
+            <div class="card data-box">
+              <div class="card-header">
+                <i class="fa fa-genderless"
+                   aria-hidden="true"></i> Vitals
+              </div>
+              <div class="card-body">
+                <div><strong>Date of Birth:</strong> {{data?.dob}}</div>
+                <div><strong>Gender:</strong> {{data?.gender}}</div>
+                <div><strong>Last Updated:</strong> {{data?.updated_at | date}}</div>  
+              </div>
+            </div>
+          </div>
+          <div class="col-md-12"
+               *ngIf="kitRegistrations && (kitRegistrations.length > 0)">
+            <div class="card data-box">
+              <div class="card-header"
+                   i18n><i class="fa fa-flask"
+                   aria-hidden="true"></i> Kit Activation History</div>
+              <ul class="list-group list-group-flush">
+                <li *ngFor="let k of kitRegistrations"
+                    class="list-group-item list-group-item-action"
+                    aria-current="true">
+                  <div class="container-fluid">
+                    <div class="row">
+                      <div class="col-md-4">
+                        <span i18n>Kit Number: {{k?.kitNumber}} </span><br> Order Number: {{k?.shopifyOrderNumber}}<span
+                              i18n
+                              *ngIf="!k.shopifyOrderNumber">n/a</span><br> Ref Number: {{k.orders.id}}<span
+                              *ngIf="!k.orders.id">n/a</span>
+                      </div>
+                      <div class="col-md-4 text-center">
+                        <span class="text-muted">{{k?.updated_at | date}}</span>
+                      </div>
+                      <div class="col-md-4 text-right">
+                        <div *ngIf="k.orders && k.orders.line_items">
+                          <span *ngFor="let li of k.orders.line_items"> {{li?.name}} </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-md-12"
+               *ngIf="labOrders && (labOrders.length > 0)">
+            <div class="card data-box">
+              <div class="card-header"><i class="fa fa-history"
+                   aria-hidden="true"></i> Test History</div>
+              <ul class="list-group list-group-flush">
+                <li *ngFor="let l of labOrders" (click)="showMoreDetails(l)" style="height: 96%; cursor: pointer;"
+                    class="list-group-item list-group-item-action"
+                    aria-current="true">
+                  <div class="container-fluid">
+                    <div class="row">
+                      <div class="col-md-4">
+                        <div *ngIf="l._id"><strong><i class="fa fa-id-badge"
+                               aria-hidden="true"
+                               title="Record ID"></i></strong> {{l._id}}</div>
+                        <div *ngIf="l['kit_label']"
+                             i18n><strong><i class="fa fa-tag"
+                               aria-hidden="true"
+                               title="Kit ID"></i></strong> {{l['kit_label']}} </div>
+                        <div *ngIf="l.order"
+                             i18n><strong><i class="fa fa-shopping-cart"
+                               aria-hidden="true"
+                               title="Shopify Order Number"></i></strong> {{l.order.name}}</div>
+                        <div *ngIf="l.notch_order_id"
+                             i18n><strong><i class="fa fa-file-o"
+                               aria-hidden="true"
+                               title="Notch Order ID"></i>:</strong> {{l.notch_order_id}}</div>
+                        <div *ngIf="l.updated_at"
+                             i18n><strong><i class="fa fa-calendar-check-o"
+                               aria-hidden="true"
+                               title="Last Updated"></i></strong> {{l.updated_at | date}}</div>
+                        <div *ngIf="l.email"
+                             i18n><strong><i class="fa fa-envelope-o"
+                               aria-hidden="true"></i></strong> {{l.email}}</div>
+                        <div *ngIf="l['kit_label']"
+                             i18n><strong><i class="fa fa-phone"
+                               aria-hidden="true"></i></strong> {{l['patient-phday']}} </div>
+                      </div>
+                      <div class="col-md-4 text-center">
+                        <div class="card-body">
+                          <span i18n>{{l.status | status}}</span>
+                          <div class="progress xs">
+                            <div class="progress-bar bg-progress"
+                                 [ngClass]="{'bg-progress': (l.status != '900'), 'bg-danger': (l.status == '900')}"
+                                 [ngStyle]="{'width': (l.status | labProgress)  + '%' }"
+                                 role="progressbar"
+                                 aria-valuenow="50"
+                                 aria-valuemin="0"
+                                 aria-valuemax="100">
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-4 text-right">
+                        <span *ngIf="l.files && l.files.length">
+                          <span *ngFor="let e of l.files"> {{e.name}}<br>
+                          </span>
+                        </span>
+                        <span *ngIf="l.email">Email Notification: <span *ngIf="l.emailNotification"><i
+                               class="fa fa-bell-o"
+                               aria-hidden="true"></i></span><span *ngIf="!l.emailNotification"><i class="fa fa-ban"
+                               aria-hidden="true"></i></span>
+                        </span><br>
+                        <span *ngIf="l['patient-phday']">Text Notfication: <span *ngIf="l.textNotification"><i
+                               class="fa fa-bell-o"
+                               aria-hidden="true"></i></span><span *ngIf="!l.textNotification"><i class="fa fa-ban"
+                               aria-hidden="true"></i></span>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-md">
+            <div class="card data-box">
+              <div class="card-header">
+                <i class="fa fa-lock"
+                   aria-hidden="true"></i> Permissions
+              </div>
+              <div class="card-body">
+                <strong>Roles: </strong>{{data?.roles}}<br>
+              </div>
+            </div>
+          </div>
+          <div class="col-md">
+            <div class="card data-box">
+              <div class="card-header">
+                <i class="fa fa-address-book-o"
+                   aria-hidden="true"></i> Contact Info
+              </div>
+              <div class="card-body">
+                <strong>Email: </strong> {{data?.email}} <br>
+                <strong>Phone: </strong> {{data?.phoneNumber}}
+              </div>
+            </div>
+          </div>
+          <div class="col-md" *ngIf="data.notes && (data.notes.length > 0)">
+            <div class="card data-box">
+              <div class="card-header"><i class="fa fa-sticky-note-o" aria-hidden="true"></i>
+                Notes
+              </div>
+              <div>
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                      <span class="input-group-text" id="basic-addon1"><i class="fa fa-filter"></i></span>
+                  </div>
+      
+                  <input [(ngModel)]="filteredData" type="text" class="form-control form-control-lg"
+                      placeholder="Type to filter results">
+              </div>
+      
+              </div>
+              <div class="card-body">
+                <div>
+                  <ul class="list-group">
+                      <li class="list-group-item" *ngFor="let note of data.notes | noteSearch:filteredData; let i = index">
+                          {{note.text}}
+                          <p class="text-muted"><small>
+                            {{note.updated_by}}
+                            {{note.updated_at | date:'short'}}<br>
+                          </small>
+                          </p>
+                      </li>
+                  </ul>
+              </div>
+      
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

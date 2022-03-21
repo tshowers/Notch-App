@@ -1,0 +1,350 @@
+<form #dataForm="ngForm"
+      (ngSubmit)="onSubmit()">
+    <div class="container">
+        <div class="card mb-3">
+            <div class="card-header text-center text-capitalize">
+                <h4 i18n>Required Lab Information </h4>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-12 col-md">
+                        <div *ngIf="testKitRegistration"
+                             class="form-group"> <label for="firstName" i18n>First Name</label>
+                            <input [(ngModel)]="testKitRegistration.firstName"
+                                   id="firstName"
+                                   name="firstName"
+                                   tabindex="1"
+                                   autocorrect="off"
+                                   autocapitalize="off"
+                                   spellcheck="off"
+                                   autocomplete="off"
+                                   class="form-control form-control-lg"
+                                   type="text"
+                                   minlength="1"
+                                   required
+                                   autofocus>
+                        </div>
+                        <div *ngIf="testKitRegistration"
+                             class="form-group"> <label for="lastName" i18n>Last Name</label>
+                            <input [(ngModel)]="testKitRegistration.lastName"
+                                   id="lastName"
+                                   name="lastName"
+                                   tabindex="2"
+                                   autocorrect="off"
+                                   autocapitalize="off"
+                                   spellcheck="off"
+                                   autocomplete="off"
+                                   class="form-control form-control-lg"
+                                   type="text"
+                                   minlength="2"
+                                   required>
+                        </div>
+                        <div *ngIf="testKitRegistration"
+                             class="form-group">
+                            <label for="email" i18n>Email</label>
+                            <input [(ngModel)]="testKitRegistration.email"
+                                   id="email"
+                                   name="email"
+                                   tabindex="4"
+                                   autocorrect="off"
+                                   autocapitalize="off"
+                                   spellcheck="off"
+                                   autocomplete="off"
+                                   class="form-control form-control-lg"
+                                   type="email"
+                                   required>
+                        </div>
+                        <div *ngIf="testKitRegistration"
+                             class="form-group"> <label for="dob" i18n>Date of Birth</label>
+                            <input [(ngModel)]="testKitRegistration.dob"
+                                   id="dob"
+                                   name="dob"
+                                   tabindex="5"
+                                   autocorrect="off"
+                                   autocapitalize="off"
+                                   spellcheck="off"
+                                   autocomplete="off"
+                                   class="form-control form-control-lg"
+                                   type="date"
+                                   required>
+                        </div>
+                        <div *ngIf="testKitRegistration"
+                             class="form-group"> <label for="gender" i18n>Gender at Birth</label>
+                            <select [(ngModel)]="testKitRegistration.gender"
+                                    name="gender"
+                                    id="gender"
+                                    tabindex="6"
+                                    class="form-control form-control-lg"
+                                    required>
+                                <option value=""></option>
+                                <option *ngFor="let g of GENDERS"
+                                        value="{{g}}">{{g}}</option>
+                            </select>
+                        </div>
+                        <div *ngIf="testKitRegistration"
+                             class="form-group"> <label for="phoneNumber" i18n>Phone Number </label>
+                            <input [(ngModel)]="testKitRegistration.phoneNumber"
+                                   id="phoneNumber"
+                                   name="phoneNumber"
+                                   tabindex="7"
+                                   autocorrect="off"
+                                   autocapitalize="off"
+                                   spellcheck="off"
+                                   autocomplete="off"
+                                   class="form-control form-control-lg"
+                                   type="tel"
+                                   minlength="7"
+                                   required>
+                        </div>
+                        <div *ngIf="testKitRegistration"
+                             class="form-group">
+                            <div class="form-group form-check">
+                                <input [(ngModel)]="testKitRegistration.emailNotification"
+                                       type="checkbox"
+                                       class="form-check-input"
+                                       id="emailNotification"
+                                       name="emailNotification">
+                                <label class="form-check-label"
+                                       for="emailNotification" i18n>Email Notification</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md">
+                        <div *ngIf="testKitRegistration"
+                             class="form-group"><label for="dateCollected" i18n>Collection date - <small>date you collected
+                                    your sample</small> </label>
+                            <input [(ngModel)]="testKitRegistration.dateCollected"
+                                   tabindex="8"
+                                   type="date"
+                                   autocorrect="off"
+                                   autocapitalize="off"
+                                   spellcheck="off"
+                                   autocomplete="off"
+                                   id="dateCollected"
+                                   name="dateCollected"
+                                   class="form-control form-control-lg"
+                                   required
+                                   max="{{maxDate}}">
+                        </div>
+                        <div *ngIf="testKitRegistration"
+                             class="form-group"><label for="timeCollected" i18n>Collection time - <small>time you collected
+                                    your sample</small> </label>
+                            <input [(ngModel)]="testKitRegistration.timeCollected"
+                                   tabindex="9"
+                                   type="time"
+                                   autocorrect="off"
+                                   autocapitalize="off"
+                                   spellcheck="off"
+                                   autocomplete="off"
+                                   id="timeCollected"
+                                   name="timeCollected"
+                                   class="form-control form-control-lg"
+                                   required>
+                        </div>
+                        <div *ngIf="testKitRegistration"
+                             class="form-group"> <label for="address1" i18n> Address</label>
+                            <input [(ngModel)]="testKitRegistration.address1"
+                                   id="address1"
+                                   name="address1"
+                                   tabindex="10"
+                                   autocorrect="off"
+                                   autocapitalize="off"
+                                   spellcheck="off"
+                                   autocomplete="off"
+                                   class="form-control form-control-lg"
+                                   type="text"
+                                   required>
+                        </div>
+                        <div *ngIf="testKitRegistration"
+                             class="form-group"> <label for="city" i18n> City</label>
+                            <input [(ngModel)]="testKitRegistration.city"
+                                   id="city"
+                                   name="city"
+                                   tabindex="11"
+                                   autocorrect="off"
+                                   autocapitalize="off"
+                                   spellcheck="off"
+                                   autocomplete="off"
+                                   class="form-control form-control-lg"
+                                   type="text"
+                                   required>
+                        </div>
+                        <div *ngIf="testKitRegistration"
+                             class="form-group"> <label for="province" i18n> Province/State</label>
+                            <select [(ngModel)]="testKitRegistration.province"
+                                    name="province"
+                                    id="province"
+                                    class="form-control form-control-lg"
+                                    tabindex="12"
+                                    required>
+                                <option value=""
+                                        selected></option>
+                                <option value="AL">Alabama [AL]</option>
+                                <option value="AK">Alaska [AK]</option>
+                                <option value="AS">American Samoa [AS]</option>
+                                <option value="AZ">Arizona [AZ]</option>
+                                <option value="AR">Arkansas [AR]</option>
+                                <option value="CA">California [CA]</option>
+                                <option value="CO">Colorado [CO]</option>
+                                <option value="CT">Connecticut [CT]</option>
+                                <option value="DE">Delaware [DE]</option>
+                                <option value="DC">District of Columbia [DC]</option>
+                                <option value="FM">Federated States Of Micronesia [FM]</option>
+                                <option value="FL">Florida [FL]</option>
+                                <option value="GA">Georgia [GA]</option>
+                                <option value="GU">Guam [GU]</option>
+                                <option value="HI">Hawaii [HI]</option>
+                                <option value="ID">Idaho [ID]</option>
+                                <option value="IL">Illinois [IL]</option>
+                                <option value="IN">Indiana [IN]</option>
+                                <option value="IA">Iowa [IA]</option>
+                                <option value="KS">Kansas [KS]</option>
+                                <option value="KY">Kentucky [KY]</option>
+                                <option value="LA">Louisiana [LA]</option>
+                                <option value="ME">Maine [ME]</option>
+                                <option value="MH">Marshall Islands [MH]</option>
+                                <option value="MD">Maryland [MD]</option>
+                                <option value="MA">Massachusetts [MA]</option>
+                                <option value="MI">Michigan [MI]</option>
+                                <option value="MN">Minnesota [MN]</option>
+                                <option value="MS">Mississippi [MS]</option>
+                                <option value="MO">Missouri [MO]</option>
+                                <option value="MT">Montana [MT]</option>
+                                <option value="NE">Nebraska [NE]</option>
+                                <option value="NV">Nevada [NV]</option>
+                                <option value="NH">New Hampshire [NH]</option>
+                                <option value="NM">New Mexico [NM]</option>
+                                <option value="NC">North Carolina [NC]</option>
+                                <option value="ND">North Dakota [ND]</option>
+                                <option value="OH">Ohio [OH]</option>
+                                <option value="OK">Oklahoma [OK]</option>
+                                <option value="OR">Oregon [OR]</option>
+                                <option value="PW">Palau [PW]</option>
+                                <option value="PA">Pennsylvania [PA]</option>
+                                <option value="PR">Puerto Rico [PR]</option>
+                                <option value="SC">South Carolina [SC]</option>
+                                <option value="SD">South Dakota [SD]</option>
+                                <option value="TN">Tennessee [TN]</option>
+                                <option value="TX">Texas [TX]</option>
+                                <option value="UT">Utah [UT]</option>
+                                <option value="VT">Vermont [VT]</option>
+                                <option value="VI">Virgin Islands [VI]</option>
+                                <option value="VA">Virginia [VA]</option>
+                                <option value="WA">Washington [WA]</option>
+                                <option value="WV">West Virginia [WV]</option>
+                                <option value="WI">Wisconsin [WI]</option>
+                                <option value="WY">Wyoming [WY]</option>
+                                <option value="">---------------------------------------------</option>
+                                <option value="AB">Alberta [AB]</option>
+                                <option value="BC">British Columbia [BC]</option>
+                                <option value="MB">Manitoba [MB]</option>
+                                <option value="NB">New Brunswick [NB]</option>
+                                <option value="NF">Newfoundland and Labrador [NF]</option>
+                                <option value="NT">Northwest Territories [NT]</option>
+                                <option value="NS">Nova Scotia [NS]</option>
+                                <option value="NU">Nunavut [NU]</option>
+                                <option value="ON">Ontario [ON]</option>
+                                <option value="PE">Prince Edward Island [PE]</option>
+                                <option value="QC">Quebec [QC]</option>
+                                <option value="SK">Saskatchewan [SK]</option>
+                                <option value="YT">Yukon Territory [YT]</option>
+                            </select>
+                        </div>
+                        <div *ngIf="testKitRegistration"
+                             class="form-group"> <label for="zip" i18n> Zip</label>
+                            <input [(ngModel)]="testKitRegistration.zip"
+                                   id="zip"
+                                   name="zip"
+                                   tabindex="13"
+                                   autocorrect="off"
+                                   autocapitalize="off"
+                                   spellcheck="off"
+                                   autocomplete="off"
+                                   class="form-control form-control-lg"
+                                   type="text"
+                                   required>
+                        </div>
+                        <div *ngIf="testKitRegistration"
+                             class="form-group">
+                            <div class="form-group form-check">
+                                <input [(ngModel)]="testKitRegistration.textNotification"
+                                       type="checkbox"
+                                       class="form-check-input"
+                                       id="textNotification"
+                                       name="textNotification">
+                                <label class="form-check-label"
+                                       for="textNotification" i18n>Text Message Notification</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="alert alert-danger alert-dismissible fade show text-center"
+                     role="alert"
+                     [ngStyle]="{'display': stateWarning}" i18n> Cannot register from New York, New Jesersy and Rhode Island.
+                    <button type="button"
+                            class="close"
+                            data-dismiss="alert"
+                            aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="alert alert-danger alert-dismissible fade show text-center"
+                     role="alert"
+                     [ngStyle]="{'display': ageWarning}" i18n> Please note that this test is only for those age 18 and older.
+                    <button type="button"
+                            class="close"
+                            data-dismiss="alert"
+                            aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col text-center m-2">
+                <div class="form-group form-actions">
+                    <button type="button"
+                            class="Button Button--primary mr-3"
+                            (click)="back()" i18n>Back</button>
+                    <button type="button"
+                            tabindex="14"
+                            class="Button Button--primary"
+                            (click)="onUpdate()"
+                            [disabled]="!dataForm.form.valid" i18n>Update <i class="fa fa-chevron-right"
+                           aria-hidden="true"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<br>
+<div class="text-center"
+     *ngIf="!production">
+    <i class="fa fa-toggle-off"
+       aria-hidden="true"
+       [hidden]="toggleDisplay"
+       (click)="toggleDiagnostic()"
+       style="cursor: pointer"></i>
+    <i class="fa fa-toggle-on"
+       aria-hidden="true"
+       [hidden]="!toggleDisplay"
+       (click)="toggleDiagnostic()"
+       style="cursor: pointer"></i>
+</div>
+<div id="diagnostic"
+     [ngStyle]="{'display': diagDisplay}"
+     *ngIf="!production">
+    <h4>Test Kit Registration</h4>
+    <pre class="text-light bg-dark p-4">{{testKitRegistration | json}}</pre>
+    <hr>
+    <h4>ID</h4>
+    <pre class="text-light bg-dark p-4">{{uid | json}}</pre>
+</div>

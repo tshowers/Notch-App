@@ -1,0 +1,293 @@
+<div class="container"
+     *ngIf="loading else spinner">
+    <div class="row m-2">
+        <div class="col-md">
+            <div class="card">
+                <div class="card-header text-center text-capitalize">
+                    <h4 i18n>Summary</h4>
+                </div>
+                <div class="card-body">
+                    <div class="alert alert-danger text-center"
+                         role="alert"
+                         *ngIf="additionalInfoNeeded" i18n> Please fill out personal information below. </div>
+                    <div class="container">
+                        <div *ngIf="testKitRegistration"
+                             class="row m-2">
+                            <div class="col-2 col-md">
+                                <span class="text-right"><i class="fa fa-shopping-cart d-lg-none"
+                                       aria-hidden="true"></i><span class="d-none d-lg-block" i18n> Order
+                                        Number</span></span>
+                            </div>
+                            <div class="col-10 col-md">
+                                <span
+                                      *ngIf="testKitRegistration.shopifyOrderNumber">{{testKitRegistration.shopifyOrderNumber}}</span>
+                                <span *ngIf="!testKitRegistration.shopifyOrderNumber">n/a</span>
+                            </div>
+                        </div>
+                        <div *ngIf="testKitRegistration"
+                             class="row m-2">
+                            <div class="col-2 col-md">
+                                <span class="text-right"><i class="fa fa-flask d-lg-none"
+                                       aria-hidden="true"></i><span class="d-none d-lg-block" i18n> Kit Number</span></span>
+                            </div>
+                            <div class="col-10 col-md">
+                                <span *ngIf="testKitRegistration.kitNumber">{{testKitRegistration.kitNumber}}</span>
+                            </div>
+                        </div>
+                        <div *ngIf="testKitRegistration"
+                             class="row m-2">
+                            <div class="col-2 col-md">
+                                <span class="text-right"
+                                      [ngClass]="{'missing': (testKitRegistration.dateCollected == '')}"><i
+                                       class="fa fa-calendar d-lg-none"
+                                       aria-hidden="true"></i><span class="d-none d-lg-block">
+                                        <span *ngIf="(testKitRegistration.dateCollected == '')"
+                                              (click)="onProfile()"
+                                              style="cursor: pointer;font-weight: bold;" i18n> Date Collected</span>
+                                        <span *ngIf="(testKitRegistration.dateCollected != '')" i18n> Date Collected</span>
+                                    </span></span>
+                            </div>
+                            <div class="col-10 col-md">
+                                <span
+                                      *ngIf="testKitRegistration.dateCollected">{{testKitRegistration.dateCollected}}</span>
+                            </div>
+                        </div>
+                        <div *ngIf="testKitRegistration"
+                             class="row m-2">
+                            <div class="col-2 col-md">
+                                <span class="text-right"
+                                      [ngClass]="{'missing': (testKitRegistration.timeCollected == '')}"><i
+                                       class="fa fa-clock-o d-lg-none"
+                                       aria-hidden="true"></i><span class="d-none d-lg-block">
+                                        <span *ngIf="(testKitRegistration.timeCollected == '')"
+                                              (click)="onProfile()"
+                                              style="cursor: pointer;font-weight: bold;" i18n> Time Collected</span>
+                                        <span *ngIf="(testKitRegistration.timeCollected != '')" i18n> Time Collected</span>
+                                    </span></span>
+                            </div>
+                            <div class="col-10 col-md">
+                                <span
+                                      *ngIf="testKitRegistration.timeCollected">{{testKitRegistration.timeCollected}}</span>
+                            </div>
+                        </div>
+                        <div *ngIf="testKitRegistration"
+                             class="row m-2">
+                            <div class="col-2 col-md">
+                                <span class="text-right"
+                                      [ngClass]="{'missing': (testKitRegistration.dob == '')}"><i
+                                       class="fa fa-calendar d-lg-none"
+                                       aria-hidden="true"></i><span class="d-none d-lg-block">
+                                        <span *ngIf="(testKitRegistration.dob == '')"
+                                              (click)="onProfile()"
+                                              style="cursor: pointer;font-weight: bold;" i18n> Date of Birth</span>
+                                        <span *ngIf="(testKitRegistration.dob != '')" i18n> Date of Birth</span>
+                                    </span></span>
+                            </div>
+                            <div class="col-10 col-md">
+                                <span *ngIf="testKitRegistration.dob">{{testKitRegistration.dob}}</span>
+                            </div>
+                        </div>
+                        <div *ngIf="testKitRegistration"
+                             class="row m-2">
+                            <div class="col-2 col-md">
+                                <span class="text-right"
+                                      [ngClass]="{'missing': (testKitRegistration.phoneNumber == '')}"><i
+                                       class="fa fa-phone d-lg-none"
+                                       aria-hidden="true"></i><span class="d-none d-lg-block">
+                                        <span *ngIf="(testKitRegistration.phoneNumber == '')"
+                                              (click)="onProfile()"
+                                              style="cursor: pointer;font-weight: bold;" i18n> Phone Number</span>
+                                        <span *ngIf="(testKitRegistration.phoneNumber != '')" i18n> Phone Number</span>
+                                    </span></span>
+                            </div>
+                            <div class="col-10 col-md">
+                                <span *ngIf="testKitRegistration.phoneNumber">{{testKitRegistration.phoneNumber}}</span>
+                            </div>
+                        </div>
+                        <div *ngIf="testKitRegistration"
+                             class="row m-2">
+                            <div class="col-2 col-md">
+                                <span class="text-right"><i
+                                       class="fa fa-comment-o d-lg-none"
+                                       aria-hidden="true"></i><span class="d-none d-lg-block">
+                                        <span (click)="onProfile()"
+                                              style="cursor: pointer;font-weight: bold;" i18n> Text Notification</span>
+                                    </span></span>
+                            </div>
+                            <div class="col-10 col-md">
+                                <span *ngIf="testKitRegistration.textNotification" i18n>Yes</span>
+                                <span *ngIf="!testKitRegistration.textNotification" i18n>No</span>
+                            </div>
+                        </div>
+                        <div *ngIf="testKitRegistration"
+                             class="row m-2">
+                            <div class="col-2 col-md">
+                                <span class="text-right"><i
+                                       class="fa fa-envelope d-lg-none"
+                                       aria-hidden="true"></i><span class="d-none d-lg-block">
+                                        <span (click)="onProfile()"
+                                              style="cursor: pointer;font-weight: bold;" i18n> Email Notification</span>
+                                    </span></span>
+                            </div>
+                            <div class="col-10 col-md">
+                                <span *ngIf="testKitRegistration.emailNotification" i18n>Yes</span>
+                                <span *ngIf="!testKitRegistration.emailNotification" i18n>No</span>
+                            </div>
+                        </div>
+                        <div *ngIf="testKitRegistration"
+                             class="row m-2">
+                            <div class="col-2 col-md">
+                                <span class="text-right"
+                                      [ngClass]="{'missing': (testKitRegistration.gender == '')}"><i
+                                       class="fa fa-genderless d-lg-none"
+                                       aria-hidden="true"></i><span class="d-none d-lg-block">
+                                        <span *ngIf="(testKitRegistration.gender == '')"
+                                              (click)="onProfile()"
+                                              style="cursor: pointer;font-weight: bold;" i18n> Gender at Birth</span>
+                                        <span *ngIf="(testKitRegistration.gender != '')" i18n> Gender at Birth</span>
+                                    </span></span>
+                            </div>
+                            <div class="col-10 col-md">
+                                <span *ngIf="testKitRegistration.gender">{{testKitRegistration.gender}}</span>
+                            </div>
+                        </div>
+                        <div *ngIf="testKitRegistration"
+                             class="row m-2">
+                            <div class="col-2 col-md">
+                                <span class="text-right"
+                                      [ngClass]="{'missing': (testKitRegistration.email == '')}"><i
+                                       class="fa fa-at d-lg-none"
+                                       aria-hidden="true"></i><span class="d-none d-lg-block">
+                                        <span *ngIf="(testKitRegistration.email == '')"
+                                              (click)="onProfile()"
+                                              style="cursor: pointer;font-weight: bold;" i18n> Email Address</span>
+                                        <span *ngIf="(testKitRegistration.email != '')" i18n> Email Address</span>
+                                    </span></span>
+                            </div>
+                            <div class="col-10 col-md">
+                                <span *ngIf="testKitRegistration.email">{{testKitRegistration.email}}</span>
+                            </div>
+                        </div>
+                        <div *ngIf="testKitRegistration.address1"
+                             class="row m-2">
+                            <div class="col-2 col-md">
+                                <span class="text-right"
+                                      [ngClass]="{'missing': (testKitRegistration.address1 == '')}"><i
+                                       class="fa fa-map-signs d-lg-none"
+                                       aria-hidden="true"></i><span class="d-none d-lg-block">
+                                        <span *ngIf="(testKitRegistration.address1 == '')"
+                                              (click)="onProfile()"
+                                              style="cursor: pointer;font-weight: bold;" i18n> Street Address</span>
+                                        <span *ngIf="(testKitRegistration.address1 != '')" i18n> Street Address</span>
+                                    </span></span>
+                            </div>
+                            <div class="col-10 col-md">
+                                <span *ngIf="testKitRegistration.address1">{{testKitRegistration.address1}}</span>
+                            </div>
+                        </div>
+                        <div *ngIf="testKitRegistration.city"
+                             class="row m-2">
+                            <div class="col-2 col-md">
+                                <span class="text-right"
+                                      [ngClass]="{'missing': (testKitRegistration.city == '')}"><i
+                                       class="fa fa-building-o d-lg-none"
+                                       aria-hidden="true"></i><span class="d-none d-lg-block">
+                                        <span *ngIf="(testKitRegistration.city == '')"
+                                              (click)="onProfile()"
+                                              style="cursor: pointer;font-weight: bold;" i18n> City</span>
+                                        <span *ngIf="(testKitRegistration.city != '')" i18n> City</span>
+                                    </span></span>
+                            </div>
+                            <div class="col-10 col-md">
+                                <span *ngIf="testKitRegistration.city">{{testKitRegistration.city}}</span>
+                            </div>
+                        </div>
+                        <div *ngIf="testKitRegistration.province"
+                             class="row m-2">
+                            <div class="col-2 col-md">
+                                <span class="text-right"
+                                      [ngClass]="{'missing': (testKitRegistration.province == '')}"><i
+                                       class="fa fa-globe d-lg-none"
+                                       aria-hidden="true"></i><span class="d-none d-lg-block">
+                                        <span *ngIf="(testKitRegistration.province == '')"
+                                              (click)="onProfile()"
+                                              style="cursor: pointer;font-weight: bold;" i18n> Province</span>
+                                        <span *ngIf="(testKitRegistration.province != '')" i18n> Province</span>
+                                    </span></span>
+                            </div>
+                            <div class="col-10 col-md">
+                                <span *ngIf="testKitRegistration.province">{{testKitRegistration.province}}</span>
+                            </div>
+                        </div>
+                        <div *ngIf="testKitRegistration.zip"
+                             class="row m-2">
+                            <div class="col-2 col-md">
+                                <span class="text-right"
+                                      [ngClass]="{'missing': (testKitRegistration.zip == '')}"><i
+                                       class="fa fa-map-o d-lg-none"
+                                       aria-hidden="true"></i><span class="d-none d-lg-block">
+                                        <span *ngIf="(testKitRegistration.zip == '')"
+                                              (click)="onProfile()"
+                                              style="cursor: pointer;font-weight: bold;" i18n> Zip Code</span>
+                                        <span *ngIf="(testKitRegistration.zip != '')" i18n> Zip Code</span>
+                                    </span></span>
+                            </div>
+                            <div class="col-10 col-md">
+                                <span *ngIf="testKitRegistration.zip">{{testKitRegistration.zip}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col text-center">
+                        <button *ngIf="additionalInfoNeeded"
+                                (click)="onProfile()"
+                                class="Button Button--primary" i18n>Next <i class="fa fa-chevron-right"
+                               aria-hidden="true"></i></button> &nbsp;&nbsp; <a *ngIf="!additionalInfoNeeded" class="mr-3"
+                                (click)="onProfile()"
+                                style="cursor: pointer;" i18n>Edit</a>
+                        <span *ngIf="!additionalInfoNeeded">&nbsp;&nbsp;</span>
+                        <button *ngIf="!additionalInfoNeeded"
+                                (click)="next()"
+                                class="Button Button--primary" i18n>Next <i class="fa fa-chevron-right"
+                               aria-hidden="true"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<ng-template #spinner>
+    <div class="loader">
+        <div class="loader-inner">
+            <div class="spinner-eff spinner-eff-4">
+                <div class="bar bar-top"></div>
+                <div class="bar bar-right"></div>
+                <div class="bar bar-bottom"></div>
+                <div class="bar bar-left"></div>
+            </div>
+        </div>
+    </div>
+</ng-template>
+<br>
+<div class="text-center"
+     *ngIf="!production">
+    <i class="fa fa-toggle-off"
+       aria-hidden="true"
+       [hidden]="toggleDisplay"
+       (click)="toggleDiagnostic()"
+       style="cursor: pointer"></i>
+    <i class="fa fa-toggle-on"
+       aria-hidden="true"
+       [hidden]="!toggleDisplay"
+       (click)="toggleDiagnostic()"
+       style="cursor: pointer"></i>
+</div>
+<div id="diagnostic"
+     [ngStyle]="{'display': diagDisplay}"
+     *ngIf="!production">
+    <h4>Test Kit Activation</h4>
+    <pre class="text-light bg-dark p-4">{{testKitRegistration | json}}</pre>
+    <h4>User</h4>
+    <pre class="text-light bg-dark p-4">{{testKitRegistration | json}}</pre>
+</div>

@@ -1,0 +1,78 @@
+<section class="section" id="cart">
+    <div class="container">
+        <div class="row home">
+            <div class="col-12 ">
+                <!-- section title -->
+                <h2 class="section__title">Cart ({{items.length}})</h2>
+                <!-- end section title -->
+            </div>
+
+            <!-- cart -->
+            <div *ngIf="items">
+                <div class="col-12">
+                    <div class="cart">
+                        <div class="table-responsive">
+                            <table class="cart__table">
+                                <thead>
+                                    <tr>
+                                        <th>Product</th>
+                                        <th>Title</th>
+                                        <th>In Stock</th>
+                                        <th>Quantity</th>
+                                        <th>Unit Price</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    <tr *ngFor="let item of items; let i = index">
+                                        <td>
+                                            <div class="cart__img"><img src="item?.image" alt=""></div>
+                                        </td>
+                                        <td>{{item.title}}</td>
+                                        <td>{{item.stock}}</td>
+                                        <td>
+                                            <div class="cart__quantity">
+                                                <button (click)="decrementCartItem(item)" [disabled]="(item.quantity < 2)" type="button">
+                                                    <i class="ion ion-ios-remove"></i>
+                                                </button>
+                                                <input type="text" v-model="item.quantity">
+                                                <button (click)="incrementCartItem(item)" [disabled]="(item.quantity >= item.stock)" type="button">
+                                                    <i class="ion ion-ios-add"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                        <td><span class="cart__price">{{item.price | currency}}</span></td>
+                                        <td><button (click)="removeItem(i)" class="cart__delete" type="button"><i class="fa fa-times" aria-hidden="true"></i></button></td>
+                                    </tr>
+
+                                    <tr v-show="items.length === 0">
+                                        <td colspan="6">
+                                            <p class="cart__empty">
+                                                Cart is empty
+                                            </p>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="cart__info">
+                            <div class="cart__total">
+                                <p>Total:</p>
+                                <span>{{Total | currency}}</span>
+                            </div>
+
+                            <div class="cart__systems">
+                                <i class="pf pf-visa"></i>
+                                <i class="pf pf-mastercard"></i>
+                                <i class="pf pf-paypal"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- end cart -->
+        </div>
+    </div>
+</section>

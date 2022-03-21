@@ -1,0 +1,112 @@
+<div class="container">
+    <form #dataForm="ngForm"
+          (ngSubmit)="onSubmit()">
+        <div class="row">
+            <div class="col">
+                <div class="card mb-3">
+                    <div class="card-header text-center">
+                        <h4 class="text-capitalize" i18n="Kit Activation heading">
+                             Let's activate your kit
+                        </h4>
+
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col text-center">
+                                <p class="lead" i18n="Instructions for how to locate the kit number">Use the Test Kit ID on your collection card and the instructions
+                                    included with your kit. </p>
+                                <img src="assets/process/Notch_Process_Ico02_Reg_ID_Lght.svg"
+                                     height="150px"
+                                     width="150px"
+                                     alt="Kit Number Example"
+                                     style="max-height: 200px;">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md">
+                                <div class="form-group"><label for="email" i18n>Email Address</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"
+                                                  id="basic-addon1">@</span>
+                                        </div>
+                                        <input [(ngModel)]="testKitRegistration.email"
+                                               tabindex="1"
+                                               type="email"
+                                               autocorrect="off"
+                                               autocapitalize="off"
+                                               spellcheck="off"
+                                               autocomplete="off"
+                                               id="email"
+                                               name="email"
+                                               class="form-control form-control-lg"
+                                               autofocus
+                                               required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md">
+                                <div class="form-group"><label for="testKitNumber" i18n>Kit ID Number</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"
+                                                  id="basic-addon1"><i class="fa fa-flask"
+                                                   aria-hidden="true"></i></span>
+                                        </div>
+                                        <input [(ngModel)]="testKitRegistration.kitNumber"
+                                               title="Can't find your Kit ID?
+                                        Your Test Kit ID is located on your collection card and the instructions included with your kit. "
+                                               tabindex="2"
+                                               type="text"
+                                               autocorrect="off"
+                                               autocapitalize="off"
+                                               spellcheck="off"
+                                               autocomplete="off"
+                                               id="testKitNumber"
+                                               name="testKitNumber"
+                                               class="form-control form-control-lg"
+                                               required
+                                               minlength="4">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md text-center">
+                                <button (click)="onSubmit()"
+                                        class="Button Button--primary"
+                                        [disabled]="!dataForm.form.valid" i18n>Next <i class="fa fa-chevron-right" aria-hidden="true"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="text-center"
+     *ngIf="!production">
+    <i class="fa fa-toggle-off"
+       aria-hidden="true"
+       [hidden]="toggleDisplay"
+       (click)="toggleDiagnostic()"
+       style="cursor: pointer"></i>
+    <i class="fa fa-toggle-on"
+       aria-hidden="true"
+       [hidden]="!toggleDisplay"
+       (click)="toggleDiagnostic()"
+       style="cursor: pointer"></i>
+</div>
+<div id="diagnostic"
+     [ngStyle]="{'display': diagDisplay}"
+     *ngIf="!production">
+    <div class="col-md text-right">
+        <a routerLink="/sign-out"><i class="fa fa-sign-out"
+               aria-hidden="true"></i> Sign Out</a>
+    </div>
+    <h4>Test Kit Registration</h4>
+    <pre class="text-light bg-dark p-4">{{testKitRegistration | json}}</pre>
+    <h4>User</h4>
+    <pre class="text-light bg-dark p-4">{{authService.getFirestoreUser() | json}}</pre>
+    <hr>
+</div>

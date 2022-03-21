@@ -1,0 +1,38 @@
+.ng-valid[required],
+.ng-valid.required {
+    border-left: 5px solid #43c2d1;
+    /* green */
+}
+
+.ng-invalid:not(form) {
+    border-left: 5px solid #a94442 !important;
+    /* red */
+}
+
+.dropzone {
+    display        : flex;
+    align-items    : center;
+    justify-content: center;
+    flex-direction : column;
+    min-width      : 18rem;
+    font-weight    : 200;
+    height         : 200px;
+    border         : 2px dashed #43c2d1;
+    border-radius  : 5px;
+    background     : e5eff2;
+    margin         : 10px 0;
+}
+
+
+.hovering {
+    border: 2px solid #ff9970;
+    color : #000000 !important;
+}
+
+.file-label {
+    font-size: 1.2em;
+}
+
+progress::-webkit-progress-value {
+    transition: width 0.1s ease;
+}

@@ -1,0 +1,36 @@
+<section id="latest-posts---1"
+         class="container-fluid section-block">
+  <div class="container">
+    <div class="row">
+      <h2 class="text-center">{{headingText}}</h2>
+    </div>
+    <div class="row">
+      <article class="col-md-4 index-post-block"
+               *ngFor="let article of articles; let i = index">
+        <div class="border-box">
+          <header class="post-preview-header"
+                  *ngIf="article.urlToImage && (article.urlToImage !=null)">
+            <div class="post-thumb">
+              <img src="{{article?.urlToImage}}"
+                   alt="{{article?.title}}">
+            </div>
+          </header>
+          <div class="post-preview-content">
+            <h3><a (click)="onPageEvent(article)"
+                 title="{{article?.title}}"
+                 innerHTML="{{article?.title}}"></a> </h3>
+            <div class="post-preview-text"
+                 innerHTML="{{article?.description}}">
+            </div>
+          </div>
+          <footer class="post-preview-footer">
+            <a (click)="onPageEvent(article)"
+               class="Button Button--primary"
+               style="cursor: pointer;"
+               title="{{article?.title}}">Read more</a>
+          </footer>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>

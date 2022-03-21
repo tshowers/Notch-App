@@ -1,0 +1,23 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-1"><a routerLink="/admin"
+               title="Exit"><i class="fa fa-chevron-left fa-2x top-left"
+                   aria-hidden="true"></i>
+            </a> </div>
+        <div class="col-10 text-center">
+            <h2>Lab Order</h2>
+        </div>
+        <div class="col-1"></div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <app-lab-order-view [data]="data"
+                                [timeLineData]="dataForTimeLine"
+                                [hidden]="toggleDisplay"
+                                (toggle)="toggle()"></app-lab-order-view>
+            <app-lab-order-edit [data]="data"
+                                [hidden]="!toggleDisplay"
+                                (toggle)="toggle()"></app-lab-order-edit>
+        </div>
+    </div>
+</div>

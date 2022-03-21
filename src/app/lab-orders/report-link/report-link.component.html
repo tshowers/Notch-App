@@ -1,0 +1,7 @@
+<div class="d-flex w-100 justify-content-between">
+    <p><button title="{{report.status}}" class="btn btn-light"
+        [disabled]="report.status == 'processing'"
+        (click)="getFile()"><i class="fa fa-download"
+       aria-hidden="true"></i></button> {{report._id}}</p>
+    <small>{{report.updated_at | date:'medium'}}</small>
+</div>

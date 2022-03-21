@@ -1,0 +1,91 @@
+<div class="container"
+     *ngIf="data">
+  <div class="row">
+    <div class="col">
+      <div class="card">
+        <div class="card-header">
+          <h4>{{data?.first_name}} {{data?.last_name}}</h4>
+        </div>
+        <div class="row no-print">
+          <div class="col text-center m-2">
+            <button (click)="onDelete()"
+                    class="Button Button--primary mr-3"
+                    *ngIf="isSuper">Delete</button>
+            <div (click)="onJSON()"
+                 class="Button Button--primary">
+              <span *ngIf="jsonView == 'none'">JSON</span>
+              <span *ngIf="jsonView == ''">Regular</span>
+            </div>
+          </div>
+        </div>
+        <div class="row"
+             [ngStyle]="{'display': jsonView}">
+          <div class="col-md m-2"
+               style="max-width:600px; overflow: scroll;">
+            <pre class="text-light bg-dark p-4">{{data | json}}</pre>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md">
+            <div class="card data-box">
+              <div class="card-header">
+                <i class="fa fa-address-card-o"
+                   aria-hidden="true"></i> Address
+              </div>
+              <div class="card-body">
+                <p class="card-text"><strong>Customer ID:</strong> {{data.id}}</p>
+                <div *ngIf="data && data.default_address && data.default_address.address1">
+                  <p>{{data?.default_address?.address1}} {{data?.default_address?.address2}}<br>
+                    {{data?.default_address?.city}} {{data?.default_address?.province}} {{data?.default_address?.zip}}
+                  </p>
+                </div>
+                <p class="mb-0">{{data.email}}</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md">
+            <div class="card data-box">
+              <div class="card-header">
+                <i class="fa fa-shopping-cart"
+                   aria-hidden="true"></i> Order Info
+              </div>
+              <div class="card-body">
+                <p><strong>Last Order Id:</strong> {{data?.last_order_id}}<br>
+                  <strong>Last Order Name:</strong> {{data?.last_order_name}}
+                </p>
+                <hr>
+                <p class="mb-0"><strong>Order Count: </strong> {{data.orders_count}}<br>
+                  <strong>Total Spent: </strong>{{data?.total_spent}}
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md">
+            <div class="card data-box">
+              <div class="card-header">
+                <i class="fa fa-calendar"
+                   aria-hidden="true"></i> Modification
+              </div>
+              <div class="card-body">
+                <strong>Created: </strong>{{data?.created_at | date}}<br>
+                <strong>Last Updated: </strong>{{data?.updated_at | date}}
+              </div>
+            </div>
+          </div>
+          <div class="col-md">
+            <div class="card data-box">
+              <div class="card-header">
+                <i class="fa fa-envelope"
+                   aria-hidden="true"></i> Marketing Information
+              </div>
+              <div class="card-body">
+                <strong>Email Verified: </strong> {{data?.verified_email}} <br>
+                <strong>Accepts Marketing: </strong> {{data?.accepts_marketing}}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

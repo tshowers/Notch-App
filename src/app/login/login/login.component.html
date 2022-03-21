@@ -1,0 +1,61 @@
+<form #dataForm="ngForm"
+      (ngSubmit)="onSubmit()">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card mx-auto"
+                     style="max-width: 50rem;">
+                    <div class="card-header"><i class="fa fa-id-card-o"
+                           aria-hidden="true" i18n></i> Identity Verification <span class="float-right">1.23</span></div>
+                    <div class="card-body">
+                        <div class="form-group"><label for="orderID" i18n>Enter Your Email Address</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"
+                                          id="basic-addon1">@</span>
+                                </div>
+                                <input [(ngModel)]="email"
+                                       tabindex="1"
+                                       type="email"
+                                       autocorrect="off"
+                                       autocapitalize="off"
+                                       spellcheck="off"
+                                       autocomplete="off"
+                                       id="email"
+                                       name="email"
+                                       class="form-control form-control-lg"
+                                       autofocus
+                                       required>
+                            </div>
+                        </div>
+                        <button (click)="onSubmit()"
+                                class="Button Button--primary"
+                                type="submit"
+                                tabindex="2"
+                                [disabled]="!dataForm.form.valid" i18n>Next <i class="fa fa-chevron-right"
+                               aria-hidden="true"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<div class="text-center"
+     *ngIf="!production">
+    <i class="fa fa-toggle-off"
+       aria-hidden="true"
+       [hidden]="toggleDisplay"
+       (click)="toggleDiagnostic()"
+       style="cursor: pointer"></i>
+    <i class="fa fa-toggle-on"
+       aria-hidden="true"
+       [hidden]="!toggleDisplay"
+       (click)="toggleDiagnostic()"
+       style="cursor: pointer"></i>
+</div>
+<div id="diagnostic"
+     [ngStyle]="{'display': diagDisplay}"
+     *ngIf="!production">
+    <h4>User</h4>
+    <pre class="text-light bg-dark p-4">{{this.usersService.user | json}}</pre>
+</div>

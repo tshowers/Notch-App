@@ -1,0 +1,38 @@
+<div class="card" *ngIf="loading else spinner">
+    <div class="card-header">
+        <h4 class="text-theme">Invalid Orders</h4>
+    </div>
+    <div class="sales-list" id="orderList">
+        <table class="table table-hover table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Total</th>
+                    <th>Note</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let data of dataService.items | async; let i = index" (click)="onView(data)"
+                    style="cursor: pointer;">
+                    <td>{{data?.name}}</td>
+                    <td>{{data?.order_number}}</td>
+                    <td>{{data?.subtotal_price | currency}}</td>
+                    <td>{{data?.note}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<ng-template #spinner>
+    <div class="loader">
+        <div class="loader-inner">
+            <div class="spinner-eff spinner-eff-4">
+                <div class="bar bar-top"></div>
+                <div class="bar bar-right"></div>
+                <div class="bar bar-bottom"></div>
+                <div class="bar bar-left"></div>
+            </div>
+        </div>
+    </div>
+</ng-template>

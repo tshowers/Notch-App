@@ -1,0 +1,38 @@
+<div class="container" *ngIf="!closeMessage">
+    <div class="row justify-content-md-center">
+        <div class="col">
+            <section class="container-server-errors">
+                <div class="server-errors pages-card">
+                    <div class="status-text-1" *ngIf="authService.emailSent" i18n>Check Your Email</div>
+                    <div class="status-text-1" *ngIf="!authService.emailSent" i18n>Working</div>
+                    <div class="status-error hertbit"><i class="fa fa-envelope-o" aria-hidden="true"></i></div>
+                    <div class="text-center status-text-2 text-dark"> <span *ngIf="authService.emailSent" i18n>An email has
+                            been sent to you to verify your identity. Please click the link in the email to proceed.</span>
+                            <p class="text-center">
+                                <br>
+                            <a (click)="resend()" style="cursor: pointer;" i18n>Retry</a>
+                            </p>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+
+<div class="container" *ngIf="closeMessage">
+    <div class="row justify-content-md-center">
+        <div class="col">
+            <section class="container-server-errors">
+                <div class="server-errors pages-card">
+                    <div class="status-text-1" i18n>You can close this window. </div>
+                    <div class="status-error"><i class="fa fa-smile-o" aria-hidden="true"></i></div>
+                </div>
+            </section>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <app-latest-posts></app-latest-posts>
+        </div>
+    </div>
+</div>

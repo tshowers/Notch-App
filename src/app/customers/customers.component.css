@@ -1,0 +1,16 @@
+.card-body {
+    flex   : 1 1 auto;
+    padding: 1.25rem;
+}
+
+.notch-nav {
+    list-style-type: none;
+}
+
+.ta-row {
+    border-bottom: 1px solid #e5eff2;
+}
+
+.row-hover div:hover {
+    background-color: #e5eff2;
+}

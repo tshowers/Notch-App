@@ -1,0 +1,33 @@
+<div class="container-fluid"  *ngIf="isAdmin else unauthorized">
+    <div class="row">
+        <div class="col-1"><a routerLink="/admin" title="Exit"><i class="fa fa-chevron-left fa-2x top-left" aria-hidden="true"></i>
+            </a> </div>
+        <div class="col text-center">
+            <h2>Users</h2>
+        </div>
+        <div class="col-1"></div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 no-print">
+            <app-user-list (id)="onView($event)"></app-user-list>
+        </div>
+        <div class="col-md-6">
+            <app-user-view [data]="data" [labOrders]="labOrders" [kitRegistrations]="kitRegistrations" [hidden]="toggleDisplay" (toggle)="toggle()"></app-user-view>
+            <app-user-edit [data]="data" [hidden]="!toggleDisplay" (toggle)="toggle()"></app-user-edit>   
+        </div>
+    </div>
+</div>
+<ng-template #unauthorized>
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          <div class="alert alert-danger" role="alert">
+            <h1 class="alert-heading"><i class="fa fa-lock" aria-hidden="true"></i> Unauthorized!</h1>
+            <p>You do not have the property security settings to be here.</p>
+            <hr>
+            <h2 class="mb-0">{{ipAddress}}</h2>
+          </div>
+              </div>
+      </div>
+    </div>
+  </ng-template>

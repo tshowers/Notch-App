@@ -1,0 +1,61 @@
+.counter-2 {
+    padding: 4.5rem 0 3rem;
+  }
+  
+  .counter-2 .number {
+    display: block;
+    font-size: 3.052rem;
+    line-height: 3rem;
+    font-weight: 900;
+  }
+  
+  .counter-2 .number-desc {
+    font-size: 0.8rem;
+    line-height: 1.5rem;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+  
+  .counter-2 .number, .counter-2 .number-desc {
+    color: #000;
+  }
+  
+  .counter-2 .counter-block {
+    padding: 0 1.5rem;
+    margin-bottom: 1.5rem;
+    text-align: center;
+  }
+
+  .section-block {
+    padding: 4.5rem 15px 3rem;
+  }
+  
+  .section-block h2 {
+    position: relative;
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+    font-size: 1.563rem;
+    line-height: 1.5rem;
+    text-align: center;
+  }
+  
+  .section-block h2 span {
+    position: relative;
+    top: -0.75rem;
+  }
+  
+  .section-block h3 span {
+    position: relative;
+    top: -0.75rem;
+  }
+  
+  .section-block .block-desc {
+    margin-bottom: 1.5rem;
+    text-align: center;
+  }
+  
+  .section-block .block-desc p {
+    width: 70%;
+    margin: 0 auto;
+    color: #909aaf;
+  }

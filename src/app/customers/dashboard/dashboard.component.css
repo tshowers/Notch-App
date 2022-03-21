@@ -1,0 +1,116 @@
+.ecom-widget-chart-full {
+    background-color: #ff7a59 !important;
+    padding         : 0 !important;
+}
+
+.ecom-widget-chart-full .chart-full-header {
+    color     : #fff !important;
+    text-align: center;
+    padding   : 5px 10px !important;
+}
+
+.ecom-widget-chart-full .chart-full-header span {
+    padding: 5px 10px !important;
+}
+
+.ecom-widget-chart-full .chart-full-header .heading {
+    font-size: 2rem !important;
+}
+
+.ecom-widget-chart-full .chart-full-toolbar {
+    list-style    : none !important;
+    text-align    : center !important;
+    color         : white !important;
+    padding-bottom: 40px !important;
+    padding-top   : 10px !important;
+}
+
+.ecom-widget-chart-full .chart-full-toolbar li {
+    display: inline-block !important;
+    padding: 10px 0 !important;
+}
+
+.ecom-widget-chart-full .chart-full-toolbar li a {
+    text-decoration: none !important;
+    color          : #fff !important;
+    padding        : 10px 40px !important;
+    border-radius  : 60% !important;
+}
+
+.ecom-widget-chart-full .chart-full-toolbar li a:hover {
+    background-color: #43c2d1 !important;
+}
+
+.ecom-widget-chart-full .chart-full-toolbar li a.active {
+    background-color: #43c2d1 !important; 
+}
+
+.ecom-widget-chart-full .ecom-widget-chart-text {
+    font-size: 4rem !important;
+}
+
+.ecom-widget-chart-full .chart-full-canvas {
+    max-height: 400px !important;
+}
+
+.header-text {
+    padding: 20px 5px !important;
+}
+
+.btn-sm,
+.btn-group-sm>.btn {
+    padding    : 0.25rem 0.5rem;
+    font-size  : 0.875rem;
+}
+
+.ecom-sales-icon {
+    font-size: 6rem;
+    color    : #43c2d1;
+}
+
+.row-margin-up {
+    margin-top: -150px !important;
+}
+
+.row-margin-up .card {
+    border-radius: 40px !important;
+}
+
+.row-margin-up .ecom-widget-sales i {
+    font-size     : 6rem;
+    padding-top   : 0px;
+    padding-bottom: 40px;
+    color         : #43c2d1;
+}
+
+@media (max-width: 767px) {
+    .row-margin-up {
+        margin-top: 10px !important;
+    }
+
+    .ecom-widget-chart-text {
+        font-size: 2.5rem !important;
+    }
+}
+
+.ta-card {
+    position        : relative !important;
+    display         : flex !important;
+    flex-direction  : column !important;
+    min-width       : 0 !important;
+    word-wrap       : break-word !important;
+    background-color: #fff !important;
+    background-clip : border-box !important;
+    border-radius   : 10px !important;
+    border          : 1px solid #ff7a59 !important;
+}
+
+.ta-card>hr {
+    margin-right: 0 !important;
+    margin-left : 0 !important;
+}
+
+.ta-card-body {
+    flex   : 1 1 auto !important;
+    padding: 1.25rem !important;
+}

@@ -1,0 +1,82 @@
+<div *ngIf="isAdmin else unauthorized">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-1"><a routerLink="/admin" title="Exit"><i class="fa fa-chevron-left fa-2x top-left" aria-hidden="true"></i>
+                </a> </div>
+            <div class="col-10 text-center">
+                <h2>Test Kit Orders</h2>
+            </div>
+            <div class="col-1"></div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <notch-widget-totals [countText1]="'Total Test Kit Orders'"
+                                     [countText2]="'Airborne'"
+                                     [countText3]="'Essential'"
+                                     [countText4]="'Complete'"
+                                     [count1]="count1"
+                                     [count2]="count2"
+                                     [count3]="count3"
+                                     [count4]="count4"></notch-widget-totals>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 no-print">
+                <app-test-kit-list (id)="onView($event)"
+                                   (count1)="onCount1($event)"
+                                   (count2)="onCount2($event)"
+                                   (count3)="onCount3($event)"
+                                   (count4)="onCount4($event)"></app-test-kit-list>
+            </div>
+            <div class="col-md-6">
+                <img *ngIf="!data"
+                     src="assets/process/Notch_Process_Ico02_Reg_ID_Lght.svg"
+                     alt=""
+                     class="img-fluid">
+                <app-test-kit-view [data]="data"
+                                   [hidden]="toggleDisplay"
+                                   (toggle)="toggle()"></app-test-kit-view>
+                <app-test-kit-edit [data]="data"
+                                   [hidden]="!toggleDisplay"
+                                   (toggle)="toggle()"></app-test-kit-edit>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="text-center"
+         *ngIf="!production">
+        <i class="fa fa-toggle-off"
+           aria-hidden="true"
+           [hidden]="toggleDiag"
+           (click)="toggleDiagnostic()"
+           style="cursor: pointer"></i>
+        <i class="fa fa-toggle-on"
+           aria-hidden="true"
+           [hidden]="!toggleDiag"
+           (click)="toggleDiagnostic()"
+           style="cursor: pointer"></i>
+    </div>
+    <div id="diagnostic"
+         [ngStyle]="{'display': diagDisplay}"
+         *ngIf="!production">
+        <h4>Test Kit Order Data</h4>
+        <pre class="text-light bg-dark p-4">{{data | json}}</pre>
+        <hr>
+    </div>
+</div>
+<ng-template #unauthorized>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="alert alert-danger"
+                     role="alert">
+                    <h1 class="alert-heading"><i class="fa fa-lock"
+                           aria-hidden="true"></i> Unauthorized!</h1>
+                    <p>You do not have the property security settings to be here.</p>
+                    <hr>
+                    <h2 class="mb-0">{{ipAddress}}</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>

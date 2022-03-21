@@ -1,0 +1,288 @@
+<div class="containter-fluid"
+     *ngIf="data">
+  <div class="row">
+    <div class="col">
+      <div class="card">
+        <div class="card-header">
+          <h4 class="text-capitalize">{{data['patient-fname'] | sentence}} {{data['patient-mname'] | sentence}}
+            {{data['patient-lname'] | sentence}} </h4>
+        </div>
+        <div class="text-center no-print m-2">
+          <button *ngIf="data._id"
+                  (click)="onEdit()"
+                  class="Button Button--primary mr-2">Edit</button>
+          <button *ngIf="!data._id"
+                  (click)="onEdit()"
+                  class="Button Button--primary mr-2">Add</button>
+          <button (click)="onDelete()"
+                  class="Button Button--primary mr-2"
+                  *ngIf="isSuper && data._id">Delete</button>
+          <div (click)="onJSON()"
+               class="Button Button--primary  mr-2"
+               style="cursor: pointer;">
+            <span *ngIf="jsonView == 'none'">JSON</span>
+            <span *ngIf="jsonView == ''">Regular</span>
+          </div>
+        </div>
+        <div class="row"
+             [ngStyle]="{'display': jsonView}">
+          <div class="col-md"
+               style="max-width:600px; overflow: scroll;">
+            <pre class="text-light bg-dark p-4">{{data | json}}</pre>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-6"
+               *ngIf="timeLineData">
+               <div class="card data-box">
+                <div class="card-header"><i class="fa fa-clock-o" aria-hidden="true"></i> Timeline</div>
+                <div class="card-body">
+                  <app-timeline [data]="timeLineData"></app-timeline>
+                </div>
+               </div>
+          </div>
+          <div class="col-md">
+            <div class="card data-box">
+              <div class="card-header"><i class="fa fa-info" aria-hidden="true"></i> Meta Data</div>
+              <div class="card-body">
+                <div *ngIf="data.comment"><strong>Comment:</strong> {{data.comment}}</div>
+                <div *ngIf="data._id"><strong>ID:</strong> {{data._id}}</div>
+                <div *ngIf="data['order-id']"><strong>Order ID:</strong> {{data['order-id']}}</div>
+                <div *ngIf="data['customer-id']"><strong>Custumer ID:</strong> {{data['customer-id']}}</div>
+                <div *ngIf="data['notch_order_id']"><strong>Notch Order ID:</strong> {{data['notch_order_id']}}</div>
+                <div *ngIf="data['notch_name']"><strong>Notch Name:</strong> {{data['notch_name']}}</div>
+                <div *ngIf="data['loc-pos']"> <strong>Loc Pos:</strong> {{data['loc-pos']}}</div>
+                <div *ngIf="data.locale"><strong>Locale: </strong> {{data.locale}}</div>
+                <div *ngIf="data.status">
+                  <strong>Status: </strong> <span class="badge badge-boxed"
+                        [ngClass]="{'badge-dark' : (data['status'] == '10'), 'badge-primary' : (data['status'] == '2'), 'badge-light' : (data['status'] == '0'), 'badge-success' : ((data['status'] == '22') || (data['status'] == '999')), 'badge-warning' : ((data['status'] == '14') || (data['status'] == '1')), 'badge-info' : (data['status'] == '11'), 'badge-danger' : ((data['status'] == '9') || (data['status'] == '900'))}">{{data['status']
+                    | status}}</span>
+                </div>
+                <div *ngIf="order && order.note_attributes && order.note_attributes.length">
+                  <div *ngFor="let a of order.note_attributes">
+                    <span *ngIf="a.name == 'Amazon Order ID'"><i class="fa fa-amazon"
+                         aria-hidden="true"></i> {{a.value}}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md">
+            <div class="card data-box">
+              <div class="card-header">
+                <i class="fa fa-flask"
+                   aria-hidden="true"></i> Test Ordered
+              </div>
+              <div class="card-body">
+                <div class="alert alert-warning pb-3"
+                     role="alert"
+                     *ngIf="order && order.line_items && order.line_items.length && (order.line_items.length > 0)">
+                     <h4 class="alert-heading"><i class="fa fa-shopping-cart"></i> Store Line Items</h4>
+                  <hr>
+                  <div *ngIf="order.customer && order.customer.first_name">{{order.customer.first_name}}
+                    {{order.customer.last_name}}</div>
+                  <div *ngIf="order.customer && order.customer.email">{{order.customer.email}}</div>
+                  <div *ngIf="order.customer && order.customer.phone">{{order.customer.phone}}</div>
+                  <div *ngIf="order.customer && order.customer.default_address && order.customer.default_address.address1">
+                    {{order.customer.default_address.address1}} {{order.customer.default_address?.address2}}</div>
+                  <div *ngIf="order.customer && order.customer.default_address && order.customer.default_address.city">
+                    {{order.customer.default_address.city}} <span
+                          *ngIf="order.customer && order.customer.default_address && order.customer.default_address.province">
+                      {{order.customer.default_address.province}}</span>
+                    <span
+                          *ngIf="order.customer && order.customer.default_address && order.customer.default_address.zip">
+                      {{order.customer.default_address.zip}}</span><hr>
+                  </div>
+                  <div class="m-1"
+                       *ngFor="let li of order.line_items">
+                    <strong>Id: </strong> {{li.product_id}}<br>
+                    <strong>Name: </strong> {{li.name}}<br>
+                    <strong>Gift Card: </strong> {{li.gift_card}}<br>
+                    <strong>Price: </strong> {{li.price}}<br>
+                    <strong>SKU: </strong> <span class="text-danger">{{li.sku}}</span><br>
+                    <strong>Title: </strong> {{li.title}}
+                  </div>
+                </div>
+                <div *ngIf="data['ordered-by']"><strong>Ordered By:</strong> {{data['ordered-by']}}</div>
+                <div *ngIf="data['test-ordered']"><strong>LIS:</strong> {{data['test-ordered']}}</div>
+                <div *ngIf="data['order-date']"><strong>Ordered Date:</strong> <span
+                        *ngIf="(data['order-date'] | typeof) === 'number'">{{data['order-date'] | date}}</span>
+                  <span *ngIf="(data['order-date'] | typeof) != 'number'">{{data['order-date']}}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md"
+               *ngIf="data['patient-gender'] || data['patient-dob'] || data['patient-cycle-day'] || data['patient-cycle-length'] || data['patient-phase'] || data['species']">
+            <div class="card data-box">
+              <div class="card-header">
+                <i class="fa fa-genderless"
+                   aria-hidden="true"></i> Biological
+              </div>
+              <div class="card-body">
+                <div *ngIf="data['patient-gender']"><strong>Gender:</strong> {{data['patient-gender']}}</div>
+                <div *ngIf="data['patient-dob']"><strong>Date of Birth:</strong> {{data['patient-dob']}}</div>
+                <div *ngIf="data['patient-cycle-day']"><strong>Cycle Day:</strong> {{data['patient-cycle-day']}}</div>
+                <div *ngIf="data['patient-cycle-length']"><strong>Cycle Length:</strong>
+                  {{data['patient-cycle-length']}}</div>
+                <div *ngIf="data['patient-phase']"><strong>Phase:</strong> {{data['patient-phase']}}</div>
+                <div *ngIf="data['species']"><strong>Species:</strong> {{data['species']}}</div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md"
+               *ngIf="data['date-drawn'] || data['time-drawn'] || data['time-zone-drawn'] || data['date-received'] || data['label-amount'] || data['sample-type'] || data['sample-volume'] || data['diagnoses'] || data['label-print-status']">
+            <div class="card data-box">
+              <div class="card-header">
+                <i class="fa fa-dot-circle-o"
+                   aria-hidden="true"></i> Sample
+              </div>
+              <div class="card-body">
+                <div *ngIf="data['date-drawn']"><strong>Collection Date: </strong> {{data['date-drawn']}}</div>
+                <div *ngIf="data['time-drawn']"><strong>Collection Time: </strong> {{data['time-drawn']}}</div>
+                <div *ngIf="data['time-zone-drawn']"><strong>Time Zone: </strong> {{data['time-zone-drawn']}}</div>
+                <div *ngIf="data['date-received']">
+                  <strong>Date Received: </strong>
+                  <span *ngIf="(data['date-received'] | typeof) === 'number'">{{data['date-received'] | date}}</span>
+                  <span *ngIf="(data['date-received'] | typeof) != 'number'">{{data['date-received']}}</span>
+                </div>
+                <div *ngIf="data['label-amount']"><strong>Label Amount: </strong>{{data['label-amount']}}</div>
+                <div *ngIf="data['sample-type']"><strong>Type:</strong> {{data['sample-type']}}</div>
+                <div *ngIf="data['sample-volume']"><strong>Volume:</strong> {{data['sample-volume']}}</div>
+                <div *ngIf="data['diagnoses']"><strong>Diagnoses: </strong> {{data['diagnoses']}}</div>
+                <div *ngIf="data['label-print-status']"><strong>Label Print Status: </strong>
+                  {{data['label-print-status']}}</div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md"
+               *ngIf="data['patient-address'] || data['patient-city'] || data['patient-state'] || data['patient-zip'] || data['patient-country'] || data.email || data['patient-pheve'] || data['patient-phday'] || data['patient-ssn']">
+            <div class="card data-box">
+              <div class="card-header">
+                <i class="fa fa-address-card-o"
+                   aria-hidden="true"></i> Contact Info
+              </div>
+              <div class="card-body">
+                <div class="mb-3"
+                     *ngIf="data['patient-address'] || data['patient-city'] || data['patient-state'] || data['patient-zip'] || data['patient-country']">
+                  {{data['patient-address']}}<br> {{data['patient-city']}} {{data['patient-state']}}
+                  {{data['patient-zip']}} <br> {{data['patient-country']}} </div>
+                <div class="mb-3"
+                     *ngIf="data.email">
+                  <strong>Email:</strong> {{data.email}} <span *ngIf="data.emailNotification"><i class="fa fa-bell-o"
+                       aria-hidden="true"></i></span><span *ngIf="!data.emailNotification"><i class="fa fa-ban"
+                       aria-hidden="true"></i></span>
+                </div>
+                <div class="mb-3"
+                     *ngIf="data['patient-phday'] || data['patient-pheve']">
+                  <strong>Day Phone:</strong> {{data['patient-phday']}} <span *ngIf="data.textNotification"><i
+                       class="fa fa-bell-o"
+                       aria-hidden="true"></i></span><span *ngIf="!data.emailNotification"><i class="fa fa-ban"
+                       aria-hidden="true"></i></span><br>
+                  <strong>Evening Phone:</strong> {{data['patient-pheve']}}
+                </div>
+                <div *ngIf="data['patient-ssn']"><strong>SSN:</strong> {{data['patient-ssn']}}</div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md"
+               *ngIf="data['partner-id'] || data['partner-order-id'] || data['partner-status-id'] || data['override-partner-processing']">
+            <div class="card data-box">
+              <div class="card-header">
+                <i class="fa fa-building-o"
+                   aria-hidden="true"></i> Partner Info
+              </div>
+              <div class="card-body">
+                <div *ngIf="data['partner-id']"><strong>Partner Id:</strong> {{data['partner-id']}}</div>
+                <div *ngIf="data['partner-order-id']"><strong>Partner Order Id:</strong> {{data['partner-order-id']}}
+                </div>
+                <div *ngIf="data['partner-status-id']"><strong>Partner Status Id:</strong> {{data['partner-status-id']}}
+                </div>
+                <div *ngIf="data['override-partner-processing']"><strong>Override Partner Processing:</strong>
+                  {{data['override-partner-processing']}}</div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md"
+               *ngIf="data.files && data.files.length && (data.files.length > 0)">
+            <div class="card data-box">
+              <div class="card-header">
+                <i class="fa fa-file-pdf-o"
+                   aria-hidden="true"></i> Files
+              </div>
+              <div class="card-body">
+                <ul class="list-group"
+                    *ngIf="data.files">
+                  <li class="list-group-item"
+                      *ngFor="let f of data.files">
+                    <a [href]="f.url"
+                       target="_blank"
+                       rel="noopener"><i class="fa fa-download"
+                         aria-hidden="true"></i> {{f.name}} </a> {{f?.uploaded_at | date}}
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="col-md"
+               *ngIf="data['invoice-date'] || data['invoice-date']">
+            <div class="card data-box">
+              <div class="card-header">
+                <i class="fa fa-money"
+                   aria-hidden="true"></i> Invoice Info
+              </div>
+              <div class="card-body">
+                <span *ngIf="(data['invoice-date'] | typeof) === 'number'">{{data['invoice-date'] | date}}</span><br>
+                <span *ngIf="(data['invoice-date'] | typeof) != 'number'">{{data['invoice-date']}}</span><br>
+                {{data['invoice-num']}}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row mt-2"
+             *ngIf="data['reject-code'] || data['request'] || data['report-template'] || data['rush-date'] ||  data['ship-priority'] || data['storage'] || data['test-priority'] || data['partner-processing-comment']">
+          <div class="col">
+            <div class="card">
+              <div class="card-header">Miscellaneous</div>
+              <div class="card-body">
+                <ul class="list-group">
+                  <li *ngIf="data['reject-code']"
+                      class="list-group-item d-flex justify-content-between align-items-center"> {{data['reject-code']}}
+                    <span><small>reject code</small></span></li>
+                  <li *ngIf="data['report-template']"
+                      class="list-group-item d-flex justify-content-between align-items-center">
+                    {{data['report-template']}} <span><small>report template</small></span></li>
+                  <li *ngIf="data['request']"
+                      class="list-group-item d-flex justify-content-between align-items-center"> {{data['request']}}
+                    <span><small>request</small></span></li>
+                  <li *ngIf="data['rush-date']"
+                      class="list-group-item d-flex justify-content-between align-items-center"> {{data['rush-date']}}
+                    <span><small>rush date</small></span></li>
+                  <li *ngIf="data['ship-method']"
+                      class="list-group-item d-flex justify-content-between align-items-center"> {{data['ship-method']}}
+                    <span><small>ship method</small></span></li>
+                  <li *ngIf="data['ship-priority']"
+                      class="list-group-item d-flex justify-content-between align-items-center">
+                    {{data['ship-priority']}} <span><small>ship priority</small></span></li>
+                  <li *ngIf="data['storage']"
+                      class="list-group-item d-flex justify-content-between align-items-center"> {{data['storage']}}
+                    <span><small>storage</small></span></li>
+                  <li *ngIf="data['test-priority']"
+                      class="list-group-item d-flex justify-content-between align-items-center">
+                    {{data['test-priority']}} <span><small>test priority</small></span></li>
+                  <li *ngIf="data['verified']"
+                      class="list-group-item d-flex justify-content-between align-items-center"> {{data['verified']}}
+                    <span><small>verified</small></span></li>
+                  <li *ngIf="data['partner-processing-comment']"
+                      class="list-group-item d-flex justify-content-between align-items-center">
+                    {{data['partner-processing-comment']}} <span><small>processing comment</small></span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

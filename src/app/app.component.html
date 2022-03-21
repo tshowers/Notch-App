@@ -1,0 +1,15 @@
+<div class="container-fluid" [@triggerName]="prepareRoute(outlet)">
+    <div class="row">
+        <div class="col-md text-center">
+            <a href="https://notch.health">
+                <img src="/assets/logos/NotchLogo_RGB_Color_Onlight.svg" i18n-alt="Notch Health" width="140px">
+            </a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md">
+            <router-outlet #outlet="outlet"></router-outlet>
+        </div>
+    </div>
+</div>
+

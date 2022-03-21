@@ -1,0 +1,309 @@
+<div class="container"
+     *ngIf="uid else spinner">
+    <div class="row">
+        <div class="col">
+            <div class="card">
+                <div class="card-header"
+                     *ngIf="user && user.firstName && user.lastName"><i class="fa fa-user-o" aria-hidden="true"></i> {{user.firstName}} {{user.lastName}}</div>
+                <div class="card-body">
+                    <div class="container-fluid">
+                        <div class="row m-2">
+                            <div class="col-md d-none d-lg-block text-right">
+                                <span class="font-weight-bold"><i class="fa fa-at "
+                                       aria-hidden="true"></i> Login Email </span>
+                            </div>
+                            <div class="col-10 col-md-5 "> {{email}} </div>
+                            <div class="col-1   text-right">
+                                <i *ngIf="emailVerified"
+                                   class="fa fa-lock mat-icon"
+                                   aria-hidden="true"></i> <i *ngIf="!emailVerified"
+                                   style="cursor: pointer;"
+                                   class="fa fa-unlock text-danger"
+                                   aria-hidden="true"></i>
+                            </div>
+                        </div>
+                        <div *ngIf="user"
+                             class="row m-2">
+                            <div class="col-md d-none d-lg-block text-right">
+                                <span class="font-weight-bold"><i class="fa fa-address-book-o"
+                                       aria-hidden="true"></i> First Name</span>
+                            </div>
+                            <div class="col-10 col-md-5 ">
+                                <span *ngIf="user.firstName">{{user?.firstName}}</span>
+                                <span *ngIf="!user.firstName">n/a</span>
+                            </div>
+                            <div class="col-1 text-right">
+                                <a (click)="onName()"
+                                   style="cursor: pointer;"><i class="fa fa-chevron-right fa-1x"></i></a>
+                            </div>
+                        </div>
+                        <div *ngIf="user"
+                             class="row m-2">
+                            <div class="col-md d-none d-lg-block text-right">
+                                <span class="font-weight-bold"><i class="fa fa-address-book-o"
+                                       aria-hidden="true"></i> Last Name</span>
+                            </div>
+                            <div class="col-10 col-md-5">
+                                <span *ngIf="user.lastName">{{user?.lastName}}</span>
+                                <span *ngIf="!user.lastName">n/a</span>
+                            </div>
+                            <div class="col-1 text-right"><a (click)="onName()"
+                                   style="cursor: pointer;"><i class="fa fa-chevron-right fa-1x"></i></a></div>
+                        </div>
+                        <div *ngIf="user"
+                             class="row m-2">
+                            <div class="col-md d-none d-lg-block text-right">
+                                <span class="font-weight-bold"><i class="fa fa-calendar"
+                                       aria-hidden="true"></i> Date of Birth</span>
+                            </div>
+                            <div class="col-10 col-md-5">
+                                <span *ngIf="user.dob">{{user?.dob}}</span>
+                                <span *ngIf="!user.dob">n/a</span>
+                            </div>
+                            <div class="col-1 text-right"><a (click)="onDob()"
+                                   style="cursor: pointer;"><i class="fa fa-chevron-right fa-1x"></i></a></div>
+                        </div>
+                        <div *ngIf="user"
+                             class="row m-2">
+                            <div class="col-md d-none d-lg-block text-right">
+                                <span class="font-weight-bold"><i class="fa fa-phone"
+                                       aria-hidden="true"></i> Phone</span>
+                            </div>
+                            <div class="col-10 col-md-5">
+                                <span *ngIf="user.phoneNumber">{{user?.phoneNumber}}</span>
+                                <span *ngIf="!user.phoneNumber">n/a</span>
+                            </div>
+                            <div class="col-1 text-right">
+                                <a (click)="onPhone()"
+                                   style="cursor: pointer;"><i class="fa fa-chevron-right fa-1x"></i></a>
+                            </div>
+                        </div>
+                        <div *ngIf="user"
+                             class="row m-2">
+                            <div class="col-md d-none d-lg-block text-right">
+                                <span class="font-weight-bold"><i class="fa fa-genderless"
+                                       aria-hidden="true"></i> Gender</span>
+                            </div>
+                            <div class="col-10 col-md-5">
+                                <span *ngIf="user.gender">{{user?.gender}}</span>
+                                <span *ngIf="!user.gender">n/a</span>
+                            </div>
+                            <div class="col-1 text-right">
+                                <a (click)="onGender()"
+                                   style="cursor: pointer;"><i class="fa fa-chevron-right fa-1x"></i></a>
+                            </div>
+                        </div>
+                        <div *ngIf="user"
+                             class="row m-2">
+                            <div class="col-md d-none d-lg-block text-right">
+                                <span class="font-weight-bold"><i class="fa fa-map-signs"
+                                       aria-hidden="true"></i> Street Address</span>
+                            </div>
+                            <div class="col-10 col-md-5">
+                                <span *ngIf="user.address1">{{user?.address1}} {{user?.address2}}</span>
+                                <span *ngIf="!user.address1">n/a</span>
+                            </div>
+                            <div class="col-1 text-right">
+                                <a (click)="onAddress()"
+                                   style="cursor: pointer;"><i class="fa fa-chevron-right fa-1x"></i></a>
+                            </div>
+                        </div>
+                        <div *ngIf="user"
+                             class="row m-2">
+                            <div class="col-md d-none d-lg-block text-right">
+                                <span class="font-weight-bold"><i class="fa fa-building-o"
+                                       aria-hidden="true"></i> City</span>
+                            </div>
+                            <div class="col-10 col-md-5">
+                                <span *ngIf="user.city">{{user?.city}}</span>
+                                <span *ngIf="!user.city">n/a</span>
+                            </div>
+                            <div class="col-1 text-right">
+                                <a (click)="onAddress()"
+                                   style="cursor: pointer;"><i class="fa fa-chevron-right fa-1x"></i></a>
+                            </div>
+                        </div>
+                        <div *ngIf="user"
+                             class="row m-2">
+                            <div class="col-md d-none d-lg-block text-right">
+                                <span class="font-weight-bold"><i class="fa fa-globe"
+                                       aria-hidden="true"></i> Province</span>
+                            </div>
+                            <div class="col-10 col-md-5 ">
+                                <span *ngIf="user.province">{{user?.province}}</span>
+                                <span *ngIf="!user.province">n/a</span>
+                            </div>
+                            <div class="col-1 text-right">
+                                <a (click)="onAddress()"
+                                   style="cursor: pointer;"><i class="fa fa-chevron-right fa-1x"></i></a>
+                            </div>
+                        </div>
+                        <div *ngIf="user"
+                             class="row m-2">
+                            <div class="col-md d-none d-lg-block text-right">
+                                <span class="font-weight-bold"><i class="fa fa-map-o"
+                                       aria-hidden="true"></i> Zip</span>
+                            </div>
+                            <div class="col-10 col-md-5">
+                                <span *ngIf="user.zip">{{user?.zip}}</span>
+                                <span *ngIf="!user.zip">n/a</span>
+                            </div>
+                            <div class="col-1 text-right">
+                                <a (click)="onAddress()"
+                                   style="cursor: pointer;"><i class="fa fa-chevron-right fa-1x"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row m-2">
+                        <div class="col-md text-center">
+                            <a routerLink="/admin"
+                               class="Button Button--primary m-3"
+                               *ngIf="isAdmin">Dashboard</a><a routerLink="/"
+                               class="Button Button--primary m-3">Activate Another Kit</a> <a routerLink="/sign-out"
+                               class="Button Button--primary">Sign Out <i class="fa fa-sign-out" aria-hidden="true"></i></a> &nbsp;
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div *ngIf="kitRegistrations && (kitRegistrations.length > 0)">
+                <div class="card">
+                    <div class="card-header" i18n><i class="fa fa-flask"
+                           aria-hidden="true"></i> Kit Activation History</div>
+                    <ul class="list-group list-group-flush">
+                        <li *ngFor="let k of kitRegistrations"
+                            class="list-group-item list-group-item-action"
+                            aria-current="true">
+                            <div class="container-fluid">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <span i18n>Kit Number: {{k?.kitNumber}} </span><br>
+                                        Order Number: {{k?.shopifyOrderNumber}}<span i18n *ngIf="!k.shopifyOrderNumber">n/a</span><br>
+                                        Ref Number: {{k.orders.id}}<span *ngIf="!k.orders.id">n/a</span>
+
+                                    </div>
+                                    <div class="col-md-4 text-center">
+                                        <span class="text-muted">{{k?.updated_at | date}}</span>
+                                    </div>
+                                    <div class="col-md-4 text-right">
+                                        <div *ngIf="k.orders && k.orders.line_items">
+                                            <span *ngFor="let li of k.orders.line_items"
+                                                  (click)="onReorder(li.product_id)"
+                                                  style="cursor: pointer;"
+                                                  title="Reorder">
+                                                <i class="fa fa-cart-plus fa-2x mat-icon"
+                                                   aria-hidden="true"></i> &nbsp; {{li?.name}} </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <br>
+            <div *ngIf="labOrders && (labOrders.length > 0)">
+                <div class="card">
+                    <div class="card-header"><i class="fa fa-history"
+                           aria-hidden="true"></i> Test History</div>
+                    <ul class="list-group list-group-flush">
+                        <li *ngFor="let l of labOrders"
+                            class="list-group-item list-group-item-action"
+                            aria-current="true">
+                            <div class="container-fluid">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <span *ngIf="l._id">ID: ***{{l._id | slice:-4}} <br></span> 
+                                        <span *ngIf="l['kit_label']" i18n>Kit Number: {{l['kit_label']}} <br></span> 
+                                        <span *ngIf="l.order" i18n>Order Id: {{l.order.name}}<br></span> 
+                                        <span *ngIf="l.notch_order_id" i18n>Ref#: {{l.notch_order_id}}<br></span>  
+                                        <span *ngIf="l.updated_at" i18n>Last
+                                            Updated: {{l.updated_at | date}}</span> 
+                                    </div>
+                                    <div class="col-md-4 text-center">
+                                        <div class="card-body">
+                                            <span i18n *ngIf="l.status != '900'">{{l.status |
+                                                status}}</span>
+                                            <div class="progress xs">
+                                                <div class="progress-bar bg-progress"
+                                                     [ngClass]="{'bg-progress': (l.status != '999'), 'bg-success': (l.status == '999')}"
+                                                     [ngStyle]="{'width': (l.status | labProgress)  + '%' }"
+                                                     role="progressbar"
+                                                     aria-valuenow="50"
+                                                     aria-valuemin="0"
+                                                     aria-valuemax="100">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 text-right">
+                                        <span *ngIf="l.files && l.files.length">
+                                            <span *ngFor="let e of l.files">
+                                                <span (click)="onLabOrderResultsClick(e.url)" style="cursor: pointer;">{{e.name}} <i class="fa fa-download" aria-hidden="true" ></i></span><br>
+                                                
+                                                <!-- <a 
+                                                href="{{e.url}}"
+                                                   target="_blank"
+                                                   rel="noopener"><i class="fa fa-download"
+                                                       aria-hidden="true"></i> {{e.name}} {{e?.uploaded_at | date}}</a><br> -->
+                                            </span>
+                                        </span>
+                                        <span *ngIf="l.email">Email Notification:
+                                            <span *ngIf="l.emailNotification"><i class="fa fa-bell-o"
+                                                aria-hidden="true"></i></span><span *ngIf="!l.emailNotification"><i class="fa fa-ban"
+                                                aria-hidden="true"></i></span>
+                                        </span><br>
+                                        <span *ngIf="l['patient-phday']">Text Notfication: <span *ngIf="l.textNotification"><i
+                                            class="fa fa-bell-o"
+                                            aria-hidden="true"></i></span><span *ngIf="!l.textNotification"><i class="fa fa-ban"
+                                            aria-hidden="true"></i></span>
+
+                                        </span>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<ng-template #spinner>
+    <div class="loader">
+        <div class="loader-inner">
+            <div class="spinner-eff spinner-eff-4">
+                <div class="bar bar-top"></div>
+                <div class="bar bar-right"></div>
+                <div class="bar bar-bottom"></div>
+                <div class="bar bar-left"></div>
+            </div>
+        </div>
+    </div>
+</ng-template>
+<br>
+<div class="text-center"
+     *ngIf="!production">
+    <i class="fa fa-toggle-off"
+       aria-hidden="true"
+       [hidden]="toggleDisplay"
+       (click)="toggleDiagnostic()"
+       style="cursor: pointer"></i>
+    <i class="fa fa-toggle-on"
+       aria-hidden="true"
+       [hidden]="!toggleDisplay"
+       (click)="toggleDiagnostic()"
+       style="cursor: pointer"></i>
+</div>
+<div id="diagnostic"
+     [ngStyle]="{'display': diagDisplay}"
+     *ngIf="!production">
+    <h4>User</h4>
+    <pre class="text-light bg-dark p-4">{{user | json}}</pre>
+    <pre class="text-light bg-dark p-4">{{fu | json}}</pre>
+    <h4>Kit Registrations</h4>
+    <pre class="text-light bg-dark p-4">{{kitRegistrations | json}}</pre>
+    <h4>Lab Orders</h4>
+    <pre class="text-light bg-dark p-4">{{labOrders | json}}</pre>
+</div>

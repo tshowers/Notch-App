@@ -1,0 +1,293 @@
+<div class="row">
+    <div class="col-3">
+      <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+        <a class="nav-link active" id="v-pills-diary-tab" data-toggle="pill" href="#v-pills-diary" role="tab" aria-controls="v-pills-diary" aria-selected="true">Diary</a>
+        <a class="nav-link" id="v-pills-nuts-tab" data-toggle="pill" href="#v-pills-nuts" role="tab" aria-controls="v-pills-nuts" aria-selected="false">Nuts/Seeds</a>
+        <a class="nav-link" id="v-pills-veggies-tab" data-toggle="pill" href="#v-pills-veggies" role="tab" aria-controls="v-pills-veggies" aria-selected="false">Vegetables</a>
+        <a class="nav-link" id="v-pills-fruits-tab" data-toggle="pill" href="#v-pills-fruits" role="tab" aria-controls="v-pills-fruits" aria-selected="false">Fruits</a>
+        <a class="nav-link" id="v-pills-fish-tab" data-toggle="pill" href="#v-pills-fish" role="tab" aria-controls="v-pills-fish" aria-selected="false">Fish/Crustacea/Mollusk</a>
+        <a class="nav-link" id="v-pills-legumes-tab" data-toggle="pill" href="#v-pills-legumes" role="tab" aria-controls="v-pills-legumes" aria-selected="false">Legumes</a>
+        <a class="nav-link" id="v-pills-grains-tab" data-toggle="pill" href="#v-pills-grains" role="tab" aria-controls="v-pills-grains" aria-selected="false">Grains</a>
+        <a class="nav-link" id="v-pills-meat-tab" data-toggle="pill" href="#v-pills-meat" role="tab" aria-controls="v-pills-meat" aria-selected="false">Egg/Meat/Poultry</a>
+        <a class="nav-link" id="v-pills-misc-tab" data-toggle="pill" href="#v-pills-misc" role="tab" aria-controls="v-pills-misc" aria-selected="false">Miscellaneous</a>
+        <a class="nav-link" id="v-pills-herbs-tab" data-toggle="pill" href="#v-pills-herbs" role="tab" aria-controls="v-pills-herbs" aria-selected="false">Herbs/Spices</a>
+        <a class="nav-link" id="v-pills-candida-tab" data-toggle="pill" href="#v-pills-candida" role="tab" aria-controls="v-pills-candida" aria-selected="false">Candida Screen</a>
+
+      </div>
+    </div>
+    <div class="col-9">
+      <div class="tab-content" id="v-pills-tabContent">
+        <div class="tab-pane fade show active" id="v-pills-diary" role="tabpanel" aria-labelledby="v-pills-diary-tab">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md">
+                        <canvas id="diary-chart"
+                                class="chart-canvas"></canvas>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md">
+                        <h3>Dairy</h3>
+                        <table class="table table-hover table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Analyte</th>
+                                    <th>Class</th>
+                                    <th>Value</th>
+                                    <th>Very Low Range</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let r of diaryResults">
+                                    <td>{{r.antigen}}</td>
+                                    <td>{{r.analyte}}</td>
+                                    <td>{{r.reaction}}</td>
+                                    <td>{{r.value}} {{r.unit}}</td>
+                                    <td>&lt;3 mg/L</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="tab-pane fade" id="v-pills-nuts" role="tabpanel" aria-labelledby="v-pills-nuts-tab">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md">
+                        <h3>Nuts/Seeds</h3>
+                        <table class="table table-hover table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Analyte</th>
+                                    <th>Class</th>
+                                    <th>Value</th>
+                                    <th>Very Low Range</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let r of nutsResults">
+                                    <td>{{r.antigen}}</td>
+                                    <td>{{r.analyte}}</td>
+                                    <td>{{r.reaction}}</td>
+                                    <td>{{r.value}} {{r.unit}}</td>
+                                    <td>&lt;3 mg/L</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+        <div class="tab-pane fade" id="v-pills-veggies" role="tabpanel" aria-labelledby="v-pills-veggies-tab">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md">
+                        <h3>Vegetables</h3>
+                        <table class="table table-hover table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Analyte</th>
+                                    <th>Class</th>
+                                    <th>Value</th>
+                                    <th>Very Low Range</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let r of vegResults">
+                                    <td>{{r.antigen}}</td>
+                                    <td>{{r.analyte}}</td>
+                                    <td>{{r.reaction}}</td>
+                                    <td>{{r.value}} {{r.unit}}</td>
+                                    <td>&lt;3 mg/L</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+        <div class="tab-pane fade" id="v-pills-fruits" role="tabpanel" aria-labelledby="v-pills-fruits-tab">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md">
+                        <h3>Fruits</h3>
+                        <table class="table table-hover table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Analyte</th>
+                                    <th>Class</th>
+                                    <th>Value</th>
+                                    <th>Very Low Range</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let r of fruitResults">
+                                    <td>{{r.antigen}}</td>
+                                    <td>{{r.analyte}}</td>
+                                    <td>{{r.reaction}}</td>
+                                    <td>{{r.value}} {{r.unit}}</td>
+                                    <td>&lt;3 mg/L</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+        <div class="tab-pane fade" id="v-pills-fish" role="tabpanel" aria-labelledby="v-pills-fish-tab">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md">
+                        <h3>Fish/Crustacea/Mollusk</h3>
+                        <table class="table table-hover table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Analyte</th>
+                                    <th>Class</th>
+                                    <th>Value</th>
+                                    <th>Very Low Range</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let r of fishResults">
+                                    <td>{{r.antigen}}</td>
+                                    <td>{{r.analyte}}</td>
+                                    <td>{{r.reaction}}</td>
+                                    <td>{{r.value}} {{r.unit}}</td>
+                                    <td>&lt;3 mg/L</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+        <div class="tab-pane fade" id="v-pills-legumes" role="tabpanel" aria-labelledby="v-pills-legumes-tab">
+            <div class="container">
+                Legumes
+            </div>
+
+        </div>
+        <div class="tab-pane fade" id="v-pills-grains" role="tabpanel" aria-labelledby="v-pills-grains-tab">
+            <div class="container">
+                Grains
+            </div>
+
+        </div>
+        <div class="tab-pane fade" id="v-pills-meat" role="tabpanel" aria-labelledby="v-pills-meat-tab">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md">
+                        <h3>Egg/Meat/Poultry</h3>
+                        <table class="table table-hover table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Analyte</th>
+                                    <th>Class</th>
+                                    <th>Value</th>
+                                    <th>Very Low Range</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let r of eggMeatResults">
+                                    <td>{{r.antigen}}</td>
+                                    <td>{{r.analyte}}</td>
+                                    <td>{{r.reaction}}</td>
+                                    <td>{{r.value}} {{r.unit}}</td>
+                                    <td>&lt;3 mg/L</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+        <div class="tab-pane fade" id="v-pills-misc" role="tabpanel" aria-labelledby="v-pills-misc-tab">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md">
+                        <h3>Miscellaneous</h3>
+                        <table class="table table-hover table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Analyte</th>
+                                    <th>Class</th>
+                                    <th>Value</th>
+                                    <th>Very Low Range</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let r of miscellaneousResults">
+                                    <td>{{r.antigen}}</td>
+                                    <td>{{r.analyte}}</td>
+                                    <td>{{r.reaction}}</td>
+                                    <td>{{r.value}} {{r.unit}}</td>
+                                    <td>&lt;3 mg/L</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+        <div class="tab-pane fade" id="v-pills-herbs" role="tabpanel" aria-labelledby="v-pills-herbs-tab">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md">
+                        <h3>Herbs/Spices</h3>
+                        <table class="table table-hover table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Analyte</th>
+                                    <th>Class</th>
+                                    <th>Value</th>
+                                    <th>Very Low Range</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let r of herbResults">
+                                    <td>{{r.antigen}}</td>
+                                    <td>{{r.analyte}}</td>
+                                    <td>{{r.reaction}}</td>
+                                    <td>{{r.value}} {{r.unit}}</td>
+                                    <td>&lt;3 mg/L</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+        <div class="tab-pane fade" id="v-pills-candida" role="tabpanel" aria-labelledby="v-pills-candida-tab">
+            <div class="container">
+                Candida
+            </div>
+
+        </div>
+      </div>
+    </div>
+  </div>

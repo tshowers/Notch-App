@@ -1,0 +1,21 @@
+<div class="card" *ngIf="data">
+    <div class="card-header">{{data?.customer?.first_name}} {{data?.customer?.last_name}}</div>
+    <div class="card-body">
+      <p class="card-text">{{data.id}}</p>
+      <button (click)="onDelete()" class="Button Button--primary no-print"  *ngIf="isSuper">Delete</button>
+    </div>
+    <ul class="list-group list-group-flush">
+      <li *ngIf="data.note" class="list-group-item d-flex justify-content-between align-items-center">{{data.note}} <span><small>note</small></span> </li>
+      <li *ngIf="data.line_items[0].name" class="list-group-item d-flex justify-content-between align-items-center">{{data.line_items[0].name}} <span><small>product</small></span> </li>
+      <li *ngIf="data.email" class="list-group-item d-flex justify-content-between align-items-center">{{data.email}} <span><small>email</small></span> </li>
+      <li *ngIf="data.financial_status" class="list-group-item d-flex justify-content-between align-items-center">{{data.financial_status}} <span><small>status</small></span> </li>
+      <li *ngIf="data.name" class="list-group-item d-flex justify-content-between align-items-center">{{data.name}} <span><small>name</small></span> </li>
+      <li *ngIf="data.order_number" class="list-group-item d-flex justify-content-between align-items-center">{{data.order_number}} <span><small>order number</small></span> </li>
+      <li *ngIf="data.phone" class="list-group-item d-flex justify-content-between align-items-center">{{data.phone}} <span><small>phone</small></span> </li>
+      <li *ngIf="data.source_name" class="list-group-item d-flex justify-content-between align-items-center">{{data.source_name}} <span><small>source</small></span> </li>
+      <li *ngIf="data.subtotal_price" class="list-group-item d-flex justify-content-between align-items-center">{{data.subtotal_price}} <span><small>subtotal price</small></span> </li>
+      <li *ngIf="data.test" class="list-group-item d-flex justify-content-between align-items-center">{{data.test}} <span><small>test</small></span> </li>
+      <li *ngIf="data.total_line_items_price" class="list-group-item d-flex justify-content-between align-items-center">{{data.total_line_items_price}} <span><small>price</small></span> </li>
+      <li *ngIf="data.updated_at" class="list-group-item d-flex justify-content-between align-items-center">{{data.updated_at}} <span><small>updated</small></span> </li>
+    </ul>
+  </div>

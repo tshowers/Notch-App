@@ -1,0 +1,85 @@
+<div class="container" *ngIf="data">
+  <div class="row">
+    <div class="col">
+      <h4>{{data['clinic-name']}} </h4>
+      <p class="lead">{{data['kit-id']}}</p>
+      <strong>Id: </strong>{{data['_id']}}
+    </div>
+  </div>
+  <div class="row no-print">
+    <div class="col text-center m-2">
+      <button (click)="onEdit()" class="Button Button--primary mr-3">Edit</button>
+      <button (click)="onDelete()" class="Button Button--primary mr-3"   *ngIf="isSuper">Delete</button> 
+      <div  (click)="onJSON()" class="Button Button--primary">
+       <span *ngIf="jsonView == 'none'">JSON</span> 
+       <span *ngIf="jsonView == ''">Regular</span> 
+      </div>
+      </div>
+  </div>
+  <div class="row" [ngStyle]="{'display': jsonView}">
+    <div class="col" style="max-width:600px; overflow: scroll;">
+      <pre class="text-light bg-dark p-4">{{data | json}}</pre>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <div class="alert alert-light" role="alert">
+        <h4 class="alert-heading"><i class="fa fa-comments-o" aria-hidden="true"></i> Comment</h4>
+          {{data.comment}}
+      </div>
+    </div>
+    <div class="col">
+      <div class="alert alert-light" role="alert">
+        <h4 class="alert-heading"><i class="fa fa-address-card-o" aria-hidden="true"></i> Address</h4>
+        {{data.address1}}  {{data.address2}}<br>
+        {{data.city}} {{data.state}} {{data.zip}}<br>
+        {{data.country}}
+        <hr>
+        <strong>Other State:</strong> {{data['other-state']}}<br>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <div class="alert alert-light" role="alert">
+        <h4 class="alert-heading"><i class="fa fa-flask" aria-hidden="true"></i> Test Kit Info</h4>
+          <strong>Order Id: </strong> {{data['order-id']}}
+          <hr>
+          <strong>Customer Id: </strong> {{data['customer-id']}}
+          <hr>
+          <strong>Prac Id: </strong> {{data['pract_id']}}
+          <hr>
+          <strong>Order Date: {{data['order-date'] | date}}</strong>
+      </div>
+    </div>
+    <div class="col">
+      <div class="alert alert-light" role="alert">
+        <h4 class="alert-heading"><i class="fa fa-tasks" aria-hidden="true"></i> Status</h4>
+        <strong>Status: </strong>{{data.status}}<br>
+        <strong>Data Processing Status: </strong>{{data['processing-status']}}<hr>
+        <strong>Process: </strong> {{data.process}}
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <ul class="list-group list-group-flush">
+        <li *ngIf="data['order-taker']" class="list-group-item d-flex justify-content-between align-items-center">
+          {{data['order-taker']}} <span><small>order taker</small></span></li>
+        <li *ngIf="data.requester" class="list-group-item d-flex justify-content-between align-items-center">
+          {{data.requester}} <span><small>requester</small></span></li>
+        <li *ngIf="data['loc-pos']" class="list-group-item d-flex justify-content-between align-items-center">
+          {{data['loc-pos']}} <span><small>loc pos</small></span></li>
+        <li *ngIf="data['req-loc']" class="list-group-item d-flex justify-content-between align-items-center">
+          {{data['req-loc']}} <span><small>req loc</small></span></li>
+        <li *ngIf="data['shipping-method']" class="list-group-item d-flex justify-content-between align-items-center">
+          {{data['shipping-method']}} <span><small>shipping method</small></span></li>
+        <li *ngIf="data['tracking-num']" class="list-group-item d-flex justify-content-between align-items-center">
+          {{data['tracking-num']}} <span><small>tracking #</small></span></li>
+      </ul>
+    </div>
+  </div>
+
+
+
+</div>

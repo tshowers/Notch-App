@@ -1,0 +1,45 @@
+<div class="container-fluid" *ngIf="isAdmin else unauthorized">
+    <div class="row">
+        <div class="col-1">
+            <a routerLink="/admin" title="Exit"><i class="fa fa-chevron-left fa-2x top-left" aria-hidden="true"></i></a>
+        </div>
+        <div class="col text-center">
+            <h2>Kit Activations</h2>
+        </div>
+        <div class="col-1"></div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <notch-widget-totals [countText1]="'Male'" [countText2]="'Female'"
+                [countText3]="'Activations'" [countText4]="'Text Notification'" [count1]="count1" [count2]="count2"
+                [count3]="count3" [count4]="count4"></notch-widget-totals>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 no-print">
+            <app-kit-registration-list (id)="onView($event)" (count1)="onCount1($event)" (count2)="onCount2($event)"
+                (count3)="onCount3($event)" (count4)="onCount4($event)"></app-kit-registration-list>
+        </div>
+        <div class="col-md-6">
+            <img *ngIf="!data" src="assets/process/Notch_Process_Ico02_Reg_ID_Lght.svg" alt="" class="img-fluid">
+            <app-kit-registration-view [data]="data" [hidden]="toggleDisplay" (toggle)="toggle()">
+            </app-kit-registration-view>
+            <app-kit-registration-edit [data]="data" [hidden]="!toggleDisplay" (toggle)="toggle()">
+            </app-kit-registration-edit>
+        </div>
+    </div>
+</div>
+<ng-template #unauthorized>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="alert alert-danger" role="alert">
+                    <h1 class="alert-heading"><i class="fa fa-lock" aria-hidden="true"></i> Unauthorized!</h1>
+                    <p>You do not have the property security settings to be here.</p>
+                    <hr>
+                    <h2 class="mb-0">{{ipAddress}}</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>

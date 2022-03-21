@@ -1,0 +1,14 @@
+
+<ul class="timeline">
+    <li [ngClass]="{'timeline-inverted': (0 === (i%2))}" *ngFor="let n of timeLineData; let i = index">
+      <div class="timeline-badge" [ngClass]="{'bg-dark' : (n.status == '10'), 'bg-primary' : (n.status == '2'), 'bg-light' : (n.status == '0'), 'bg-success' : ((n.status == '22') || (n.status == '999')), 'bg-warning' : ((n.status == '14') || (n.status == '1')), 'bg-info' : (n.status == '11'), 'bg-danger' : ((n.status == '9') || (n.status == '900'))}"><i class="fa fa-calendar-o" aria-hidden="true"></i></div>
+      <div class="timeline-panel">
+        <div>
+          <span class="timeline-title" *ngIf="n?.updated_at"> {{n?.updated_at | date:'short'}}</span>
+        </div>
+        <div class="timeline-body">
+          <span class="badge badge-boxed" [ngClass]="{'badge-dark' : (n.status == '10'), 'badge-primary' : (n.status == '2'), 'badge-light' : (n.status == '0'), 'badge-success' : ((n.status == '22') || (n.status == '999')), 'badge-warning' : ((n.status == '14') || (n.status == '1')), 'badge-info' : (n.status == '11'), 'badge-danger' : ((n.status == '9') || (n.status == '900'))}">{{n?.status | status}}</span>
+        </div>
+      </div>
+    </li>
+  </ul>

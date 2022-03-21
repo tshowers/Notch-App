@@ -1,0 +1,182 @@
+<section class="section">
+    <div class="container">
+        <div class="row home">
+            <div class="col-12">
+                <!-- section title -->
+                <h2 class="section__title">Checkout</h2>
+                <!-- end section title -->
+            </div>
+            <!-- checkout -->
+            <div class="col-12 col-lg-8">
+                <form #dataForm="ngForm"
+                      (ngSubmit)="onSubmit()">
+                    <div class="row">
+                        <div class="col-12 col-md-6 mt-2">
+                            <input class="form-control form-control-lg"
+                                   type="text"
+                                   name="name"
+                                   placeholder="First Name">
+                        </div>
+                        <div class="col-12 col-md-6 mt-2">
+                            <input class="form-control form-control-lg"
+                                   type="text"
+                                   name="name"
+                                   placeholder="Last Name">
+                        </div>
+                        <div class="col-12 col-md-6 mt-2">
+                            <input class="form-control form-control-lg"
+                                   type="email"
+                                   name="email"
+                                   placeholder="Email Address">
+                        </div>
+                        <div class="col-12 col-md-6 mt-2">
+                            <input class="form-control form-control-lg"
+                                   type="text"
+                                   name="phone"
+                                   placeholder="Phone Number">
+                        </div>
+                        <div class="col-12 col-md-6 mt-2">
+                            <input placeholder="Address"
+                                   id="address1"
+                                   name="address1"
+                                   autocorrect="off"
+                                   autocapitalize="off"
+                                   spellcheck="off"
+                                   autocomplete="off"
+                                   class="form-control form-control-lg"
+                                   type="text"
+                                   required>
+                        </div>
+                        <div class="col-12 col-md-6 mt-2">
+                            <input placeholder="City"
+                                   id="city"
+                                   name="city"
+                                   autocorrect="off"
+                                   autocapitalize="off"
+                                   spellcheck="off"
+                                   autocomplete="off"
+                                   class="form-control form-control-lg"
+                                   type="text"
+                                   required>
+                        </div>
+                        <div class="col-12 col-md-6 mt-2">
+                            <select name="province"
+                                    id="province"
+                                    class="form-control form-control-lg"
+                                    required>
+                                <option value=""
+                                        selected></option>
+                                <option value="AL">Alabama [AL]</option>
+                                <option value="AK">Alaska [AK]</option>
+                                <option value="AS">American Samoa [AS]</option>
+                                <option value="AZ">Arizona [AZ]</option>
+                                <option value="AR">Arkansas [AR]</option>
+                                <option value="CA">California [CA]</option>
+                                <option value="CO">Colorado [CO]</option>
+                                <option value="CT">Connecticut [CT]</option>
+                                <option value="DE">Delaware [DE]</option>
+                                <option value="DC">District of Columbia [DC]</option>
+                                <option value="FM">Federated States Of Micronesia [FM]</option>
+                                <option value="FL">Florida [FL]</option>
+                                <option value="GA">Georgia [GA]</option>
+                                <option value="GU">Guam [GU]</option>
+                                <option value="HI">Hawaii [HI]</option>
+                                <option value="ID">Idaho [ID]</option>
+                                <option value="IL">Illinois [IL]</option>
+                                <option value="IN">Indiana [IN]</option>
+                                <option value="IA">Iowa [IA]</option>
+                                <option value="KS">Kansas [KS]</option>
+                                <option value="KY">Kentucky [KY]</option>
+                                <option value="LA">Louisiana [LA]</option>
+                                <option value="ME">Maine [ME]</option>
+                                <option value="MH">Marshall Islands [MH]</option>
+                                <option value="MD">Maryland [MD]</option>
+                                <option value="MA">Massachusetts [MA]</option>
+                                <option value="MI">Michigan [MI]</option>
+                                <option value="MN">Minnesota [MN]</option>
+                                <option value="MS">Mississippi [MS]</option>
+                                <option value="MO">Missouri [MO]</option>
+                                <option value="MT">Montana [MT]</option>
+                                <option value="NE">Nebraska [NE]</option>
+                                <option value="NV">Nevada [NV]</option>
+                                <option value="NH">New Hampshire [NH]</option>
+                                <option value="NJ">New Jersey [NJ]</option>
+                                <option value="NM">New Mexico [NM]</option>
+                                <option value="NY">New York [NY]</option>
+                                <option value="NC">North Carolina [NC]</option>
+                                <option value="ND">North Dakota [ND]</option>
+                                <option value="OH">Ohio [OH]</option>
+                                <option value="OK">Oklahoma [OK]</option>
+                                <option value="OR">Oregon [OR]</option>
+                                <option value="PW">Palau [PW]</option>
+                                <option value="PA">Pennsylvania [PA]</option>
+                                <option value="PR">Puerto Rico [PR]</option>
+                                <option value="RI">Rhode Island [RI]</option>
+                                <option value="SC">South Carolina [SC]</option>
+                                <option value="SD">South Dakota [SD]</option>
+                                <option value="TN">Tennessee [TN]</option>
+                                <option value="TX">Texas [TX]</option>
+                                <option value="UT">Utah [UT]</option>
+                                <option value="VT">Vermont [VT]</option>
+                                <option value="VI">Virgin Islands [VI]</option>
+                                <option value="VA">Virginia [VA]</option>
+                                <option value="WA">Washington [WA]</option>
+                                <option value="WV">West Virginia [WV]</option>
+                                <option value="WI">Wisconsin [WI]</option>
+                                <option value="WY">Wyoming [WY]</option>
+                                <option value="">---------------------------------------------</option>
+                                <option value="AB">Alberta [AB]</option>
+                                <option value="BC">British Columbia [BC]</option>
+                                <option value="MB">Manitoba [MB]</option>
+                                <option value="NB">New Brunswick [NB]</option>
+                                <option value="NF">Newfoundland and Labrador [NF]</option>
+                                <option value="NT">Northwest Territories [NT]</option>
+                                <option value="NS">Nova Scotia [NS]</option>
+                                <option value="NU">Nunavut [NU]</option>
+                                <option value="ON">Ontario [ON]</option>
+                                <option value="PE">Prince Edward Island [PE]</option>
+                                <option value="QC">Quebec [QC]</option>
+                                <option value="SK">Saskatchewan [SK]</option>
+                                <option value="YT">Yukon Territory [YT]</option>
+                            </select>
+                        </div>
+                        <div class="col-12 col-md-6 mt-2">
+                            <input id="zip"
+                                   name="zip"
+                                   placeholder="Zip Code"
+                                   autocorrect="off"
+                                   autocapitalize="off"
+                                   spellcheck="off"
+                                   autocomplete="off"
+                                   class="form-control form-control-lg"
+                                   type="text"
+                                   required>
+                        </div>
+                        <div class="col-12 mt-2">
+                            <button class="Button Button--primary"
+                                    type="submit">Complete</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <!-- end checkout -->
+            <!-- contacts -->
+            <div class="col-12 col-lg-4">
+                <div class="contacts">
+                    <h3 class="contacts__title">Free Shipping</h3>
+                    <p class="contacts__text">Shipping Included</p>
+                </div>
+                <div class="contacts">
+                    <h3 class="contacts__title"><a href="mailto:info@notch.health">info@notch.health</a></h3>
+                    <p class="contacts__text">Our contact E-mail</p>
+                </div>
+                <div class="contacts">
+                    <h3 class="contacts__title contacts__title--phone"><a href="tel:18004564325">1 800 425 4325</a>
+                    </h3>
+                    <p class="contacts__text">Call Toll Free</p>
+                </div>
+            </div>
+            <!-- end contacts -->
+        </div>
+    </div>
+</section>

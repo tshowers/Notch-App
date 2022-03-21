@@ -1,0 +1,21 @@
+image: node:10.15.3
+
+pipelines:
+ default:
+   - step:
+       name: 'Firebase Hosting Test'
+       caches:
+         - node
+       deployment: test
+       script:
+            - sed -i -e 's%$FIREBASE_API_KEY%'"$FIREBASE_API_KEY"'%g' ./src/environments/environment.pipeline.ts
+            - sed -i -e 's%$FIREBASE_AUTH_DOMAIN%'"$FIREBASE_AUTH_DOMAIN"'%g' ./src/environments/environment.pipeline.ts
+            - sed -i -e 's%$FIREBASE_DATABASE_URL%'"$FIREBASE_DATABASE_URL"'%g' ./src/environments/environment.pipeline.ts
+            - sed -i -e 's%$FIREBASE_PROJECT_ID%'"$FIREBASE_PROJECT_ID"'%g' ./src/environments/environment.pipeline.ts
+            - sed -i -e 's%$FIREBASE_STORAGE_BUCKET%'"$FIREBASE_STORAGE_BUCKET"'%g' ./src/environments/environment.pipeline.ts
+            - sed -i -e 's%$FIREBASE_APP_ID%'"$FIREBASE_APP_ID"'%g' ./src/environments/environment.pipeline.ts
+            - npm install --quiet
+            - npm run lint
+            - npm run test
+            - npm run build-test
+            - npm run deploy

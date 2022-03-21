@@ -1,0 +1,119 @@
+<div class="container"
+     *ngIf="data">
+  <div class="row">
+    <div class="col-md">
+      <div class="card">
+        <div class="card-header">
+          <h4>{{data?.customer?.first_name}} {{data?.customer?.last_name}}</h4>
+        </div>
+        <div class="row no-print">
+          <div class="col-md text-center m-2">
+            <button (click)="onDelete()"
+                    class="Button Button--primary mr-3"
+                    *ngIf="isSuper">Delete</button>
+            <div (click)="onJSON()"
+                 class="Button Button--primary">
+              <span *ngIf="jsonView == 'none'">JSON</span>
+              <span *ngIf="jsonView == ''">Regular</span>
+            </div>
+          </div>
+        </div>
+        <div class="row"
+             [ngStyle]="{'display': jsonView}">
+          <div class="col"
+               style="max-width:600px; overflow: scroll;">
+            <pre class="text-light bg-dark p-4">{{data | json}}</pre>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md">
+            <div class="card">
+              <div class="card-header">
+                <i class="fa fa-id-badge"
+                   aria-hidden="true"></i> ID
+              </div>
+              <div class="card-body">
+                <p class="card-text">{{data?.id}}</p>
+                <div *ngIf="data && data.note_attributes && data.note_attributes.length">
+                  <div *ngFor="let a of data.note_attributes">
+                    <span *ngIf="a.name == 'Amazon Order ID'">
+                      <hr><i class="fa fa-amazon"
+                         aria-hidden="true"></i> {{a.value}}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md">
+            <div class="card data-box">
+              <div class="card-header">
+                <i class="fa fa-sticky-note-o"
+                   aria-hidden="true"></i> Note
+              </div>
+              <div class="card-body"> {{data?.note}} </div>
+            </div>
+          </div>
+          <div class="col-md">
+            <div class="card data-box">
+              <div class="card-header">
+                <i class="fa fa-shopping-cart"></i> Product
+              </div>
+              <div class="card-body"
+                   *ngIf="data.line_items && data.line_items.length && (data.line_items.length > 0)">
+                <div class="m-2"
+                     *ngFor="let li of data.line_items">
+                  <strong>Id: </strong> {{li.product_id}}<br>
+                  <strong>Name: </strong> {{li.name}}<br>
+                  <strong>Gift Card: </strong> {{li.gift_card}}<br>
+                  <strong>Price: </strong> {{li.price}}<br>
+                  <strong>SKU: </strong> <span class="text-danger">{{li.sku}}</span> <br>
+                  <strong>Title: </strong> {{li.title}}<br>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md">
+            <div class="card data-box">
+              <div class="card-header">
+                <i class="fa fa-tasks"
+                   aria-hidden="true"></i> Status
+              </div>
+              <div class="card-body">
+                <strong>Status:</strong> {{data?.financial_status}}<br>
+                <strong>Order Name:</strong> {{data?.name}}<br>
+                <strong>Order Number:</strong> {{data?.order_number}}<br>
+                <strong>Total Price:</strong> {{data?.total_price}}<br>
+                <strong>Last Updated:</strong>{{data?.updated_at | date}}
+              </div>
+            </div>
+          </div>
+          <div class="col-md">
+            <div class="card data-box">
+              <div class="card-header">
+                <i class="fa fa-user-o"
+                   aria-hidden="true"></i> Customer Info
+              </div>
+              <div class="card-body">
+                <strong>Email:</strong> {{data?.email}}<br>
+                <strong *ngIf="data.phone">Phone:</strong> {{data?.phone}}<br>
+                <hr>
+                <strong>Street Address:</strong> {{data?.customer?.default_address?.address1}}
+                {{data?.customer?.default_address?.address2}}<br>
+                <strong>City/State:</strong> {{data?.customer?.default_address?.city}}
+                {{data?.customer?.default_address?.province}} {{data?.customer?.default_address?.zip}}<br>
+                <strong>Country:</strong> {{data?.customer?.default_address?.country}}
+                <hr>
+                <strong>Phone:</strong> {{data?.customer?.default_address?.phone}}<br>
+                <strong>Email:</strong> {{data?.customer?.email}}
+                <hr>
+                <strong>Orders Count:</strong> {{data?.customer?.orders_count}}<br>
+                <strong>Email Verified:</strong> {{data?.customer?.verified_email}}<br>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

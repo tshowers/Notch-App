@@ -1,0 +1,101 @@
+<div class="container"
+     *ngIf="data">
+  <div class="row">
+    <div class="col">
+      <div class="card">
+        <div class="card-header">
+          <h4>{{data?.firstName}} {{data?.lastName}}</h4>
+        </div>
+        <div class="row no-print">
+          <div class="col text-center m-2">
+            <button *ngIf="data._id"
+                    (click)="onEdit()"
+                    class="Button Button--primary mr-3">Edit</button>
+            <button *ngIf="!data._id"
+                    (click)="onEdit()"
+                    class="Button Button--primary mr-3">Add</button>
+            <button (click)="onDelete()"
+                    class="Button Button--primary mr-3"
+                    *ngIf="isSuper">Delete</button>
+            <div (click)="onJSON()"
+                 class="Button Button--primary">
+              <span *ngIf="jsonView == 'none'">JSON</span>
+              <span *ngIf="jsonView == ''">Regular</span>
+            </div>
+          </div>
+        </div>
+        <div class="row"
+             [ngStyle]="{'display': jsonView}">
+          <div class="col"
+               style="max-width:600px; overflow: scroll;">
+            <pre class="text-light bg-dark p-4">{{data | json}}</pre>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md m-2">
+            <strong>Kit Number:</strong> {{data?.kitNumber}}<br>
+            <strong>Id: </strong> {{data?._id}}<br>
+            <strong *ngIf="data.updated_at">Last Updated:</strong> {{data?.updated_at | date}}
+          </div>
+          <div class="col-md">
+            <div class="card data-box">
+              <div class="card-header">
+                <i class="fa fa-shopping-cart"
+                   aria-hidden="true"></i> Order ID
+              </div>
+              <div class="card-body"> {{data.shopifyOrderNumber}} </div>
+            </div>
+          </div>
+          <div class="col-md">
+            <div class="card data-box">
+              <div class="card-header">
+                <i class="fa fa-address-card-o"
+                   aria-hidden="true"></i> Address
+              </div>
+              <div class="card-body"> {{data.address1}} {{data.address2}}<br> {{data.city}} {{data.province}}
+                {{data.zip}}<br> {{data.country}} </div>
+            </div>
+          </div>
+          <div class="col-md">
+            <div class="card data-box">
+              <div class="card-header">
+                <i class="fa fa-flask"
+                   aria-hidden="true"></i> Personal Info
+              </div>
+              <div class="card-body">
+                <strong>Gender: </strong> {{data.gender}}<br>
+                <strong>Date of Birth: </strong> {{data.dob}}<br>
+                <strong>Email: </strong> {{data.email}} <span *ngIf="data.emailNotification"><i class="fa fa-bell-o"
+                  aria-hidden="true"></i></span><span *ngIf="!data.emailNotification"><i class="fa fa-ban"
+                  aria-hidden="true"></i></span><br>
+                <strong>Phone: </strong> {{data.phoneNumber}} <span *ngIf="data.textNotification"><i
+                  class="fa fa-bell-o"
+                  aria-hidden="true"></i></span><span *ngIf="!data.emailNotification"><i class="fa fa-ban"
+                  aria-hidden="true"></i></span><br>
+                <span *ngIf="data.uid">
+                  <strong>User Id:</strong> {{data.uid}}<br>
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="col-md">
+            <div class="card data-box">
+              <div class="card-header">
+                <i class="fa fa-tasks"
+                   aria-hidden="true"></i> Status
+              </div>
+              <div class="card-body">
+                <strong>Time Collected: </strong>{{data.timeCollected}}<br>
+                <strong>Date Collected: </strong>{{data.dateCollected}}
+                <hr>
+                <strong>Status: </strong> <span *ngIf="data.status"
+                      [ngClass]="{'badge-dark' : (data.status == '10'), 'badge-primary' : (data.status == '2'), 'badge-light' : (data.status == '0'), 'badge-success' : ((data.status == '22') || (data.status == '999')), 'badge-warning' : ((data.status == '14') || (data.status == '1')), 'badge-info' : (data.status == '11'), 'badge-danger' : (data.status == '9')}"
+                      class="badge badge-boxed">{{data?.status | status}}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

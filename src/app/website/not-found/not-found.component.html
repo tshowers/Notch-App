@@ -1,0 +1,24 @@
+<div class="container">
+    <div class="row justify-content-md-center">
+        <div class="col">
+            <section class="container-server-errors">
+                <div class="server-errors pages-card">
+                    <div class="status-text-1" *ngIf="statusText" i18n>{{statusText}}</div>
+                    <div class="status-error text-theme hertbit" *ngIf="errorCode">{{errorCode}}</div>
+                    <div class="text-center status-text-2 text-dark" *ngIf="errorMessage" i18n>{{errorMessage}}</div>
+                    <div class="small text-center text-dark" *ngIf="subErrorMessage" i18n>{{subErrorMessage}}</div>
+                </div>
+            </section>
+        </div>
+
+    </div>
+    <div class="row mt-3">
+        <div class="col text-center">
+            <div class="btn btn-primary btn-lg" (click)="back()" style="cursor: pointer;" i18n>Return        
+            </div>
+        </div>
+        <div class="col text-center">
+            <a routerLink="/verify" class="btn btn-primary btn-lg" i18n>Sign In</a>
+        </div>
+    </div>
+</div>

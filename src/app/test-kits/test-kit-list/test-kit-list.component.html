@@ -1,0 +1,46 @@
+<div class="card" *ngIf="loading else spinner">
+    <div class="card-header">
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon1"><i class="fa fa-filter"></i></span>
+            </div>
+
+            <input [(ngModel)]="filteredData" type="text" class="form-control form-control-lg"
+                placeholder="Type to filter results">
+        </div>
+    </div>
+    <div class="sales-list" id="orderList">
+
+        <table class="table table-hover table-striped">
+            <thead>
+                <tr>
+                    <th>Kit ID</th>
+                    <th>Name</th>
+                    <th>Order ID</th>
+                    <th>Test</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let data of dataService.items | async | testKitOrderFilter:filteredData; let i = index"
+                    (click)="onView(data)" style="cursor: pointer;">
+                    <td>{{data['kit-id'] | dataMaxlengthColumn}}</td>
+                    <td class="text-capitalize">{{data['clinic-name'] | sentence}}</td>
+                    <td>{{data['order-id']}}</td>
+                    <td>{{data?.comment}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<ng-template #spinner>
+    <div class="loader">
+        <div class="loader-inner">
+            <div class="spinner-eff spinner-eff-4">
+                <div class="bar bar-top"></div>
+                <div class="bar bar-right"></div>
+                <div class="bar bar-bottom"></div>
+                <div class="bar bar-left"></div>
+            </div>
+        </div>
+    </div>
+</ng-template>
